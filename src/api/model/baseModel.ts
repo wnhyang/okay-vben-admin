@@ -1,9 +1,9 @@
-export interface BasicPageParams {
+export interface PageParam {
   page: number;
   pageSize: number;
 }
 
-export interface BasicFetchResult<T> {
-  items: T[];
+export interface PageResult<T> {
+  list: T[];
   total: number;
 }

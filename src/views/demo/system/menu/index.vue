@@ -33,7 +33,7 @@
   import { defineComponent, nextTick } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getMenuList } from '/@/api/demo/system';
+  import { deleteMenu, getMenuList } from '/@/api/system/menu';
 
   import { useDrawer } from '/@/components/Drawer';
   import MenuDrawer from './MenuDrawer.vue';
@@ -77,6 +77,7 @@
       }
 
       function handleEdit(record: Recordable) {
+        console.log('record', record);
         openDrawer(true, {
           record,
           isUpdate: true,
@@ -85,6 +86,7 @@
 
       function handleDelete(record: Recordable) {
         console.log(record);
+        deleteMenu(record.id);
       }
 
       function handleSuccess() {
@@ -108,3 +110,4 @@
     },
   });
 </script>
+../../../../api/system/menu

@@ -15,8 +15,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './menu.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
-
-  import { getMenuList } from '/@/api/demo/system';
+  import { updateMenu, createMenu } from '/@/api/system/menu';
 
   export default defineComponent({
     name: 'MenuDrawer',
@@ -25,7 +24,7 @@
     setup(_, { emit }) {
       const isUpdate = ref(true);
 
-      const [registerForm, { resetFields, setFieldsValue, updateSchema, validate }] = useForm({
+      const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
         labelWidth: 100,
         schemas: formSchema,
         showActionButtonGroup: false,
@@ -42,11 +41,6 @@
             ...data.record,
           });
         }
-        const treeData = await getMenuList();
-        updateSchema({
-          field: 'parentMenu',
-          componentProps: { treeData },
-        });
       });
 
       const getTitle = computed(() => (!unref(isUpdate) ? '新增菜单' : '编辑菜单'));
@@ -56,7 +50,13 @@
           const values = await validate();
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
+          // 更新菜单
           console.log(values);
+          if (unref(isUpdate)) {
+            updateMenu(values);
+          } else {
+            createMenu(values);
+          }
           closeDrawer();
           emit('success');
         } finally {

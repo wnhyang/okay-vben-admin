@@ -2,11 +2,12 @@ import { BasicColumn, FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
 import Icon from '@/components/Icon/Icon.vue';
+import { getMenuSimpleList } from '@/api/system/menu';
 
 export const columns: BasicColumn[] = [
   {
     title: '菜单名称',
-    dataIndex: 'menuName',
+    dataIndex: 'title',
     width: 200,
     align: 'left',
   },
@@ -51,13 +52,13 @@ export const columns: BasicColumn[] = [
   },
 ];
 
-const isDir = (type: string) => type === '0';
-const isMenu = (type: string) => type === '1';
-const isButton = (type: string) => type === '2';
+const isDir = (type: number) => type === 0;
+const isMenu = (type: number) => type === 1;
+const isButton = (type: number) => type === 2;
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'menuName',
+    field: 'title',
     label: '菜单名称',
     component: 'Input',
     colProps: { span: 8 },
@@ -68,8 +69,8 @@ export const searchFormSchema: FormSchema[] = [
     component: 'Select',
     componentProps: {
       options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
+        { label: '启用', value: 0 },
+        { label: '停用', value: 1 },
       ],
     },
     colProps: { span: 8 },
@@ -78,36 +79,41 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
+    label: '编号',
+    field: 'id',
+    show: false,
+    component: 'Input',
+  },
+  {
     field: 'type',
     label: '菜单类型',
     component: 'RadioButtonGroup',
-    defaultValue: '0',
+    defaultValue: 0,
     componentProps: {
       options: [
-        { label: '目录', value: '0' },
-        { label: '菜单', value: '1' },
-        { label: '按钮', value: '2' },
+        { label: '目录', value: 0 },
+        { label: '菜单', value: 1 },
+        { label: '按钮', value: 2 },
       ],
     },
     colProps: { lg: 24, md: 24 },
   },
   {
-    field: 'menuName',
+    field: 'title',
     label: '菜单名称',
     component: 'Input',
     required: true,
   },
 
   {
-    field: 'parentMenu',
+    field: 'parentId',
     label: '上级菜单',
-    component: 'TreeSelect',
+    component: 'ApiTreeSelect',
+    defaultValue: 0,
     componentProps: {
-      fieldNames: {
-        label: 'menuName',
-        key: 'id',
-        value: 'id',
-      },
+      api: getMenuSimpleList,
+      labelField: 'title',
+      valueField: 'id',
       getPopupContainer: () => document.body,
     },
   },
@@ -116,6 +122,7 @@ export const formSchema: FormSchema[] = [
     field: 'orderNo',
     label: '排序',
     component: 'InputNumber',
+    defaultValue: 0,
     required: true,
   },
   {
@@ -127,7 +134,7 @@ export const formSchema: FormSchema[] = [
   },
 
   {
-    field: 'routePath',
+    field: 'path',
     label: '路由地址',
     component: 'Input',
     required: true,
@@ -149,11 +156,11 @@ export const formSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'RadioButtonGroup',
-    defaultValue: '0',
+    defaultValue: 0,
     componentProps: {
       options: [
-        { label: '启用', value: '0' },
-        { label: '禁用', value: '1' },
+        { label: '启用', value: 0 },
+        { label: '禁用', value: 1 },
       ],
     },
   },
@@ -161,11 +168,11 @@ export const formSchema: FormSchema[] = [
     field: 'isExt',
     label: '是否外链',
     component: 'RadioButtonGroup',
-    defaultValue: '0',
+    defaultValue: false,
     componentProps: {
       options: [
-        { label: '否', value: '0' },
-        { label: '是', value: '1' },
+        { label: '否', value: false },
+        { label: '是', value: true },
       ],
     },
     ifShow: ({ values }) => !isButton(values.type),
@@ -175,25 +182,25 @@ export const formSchema: FormSchema[] = [
     field: 'keepalive',
     label: '是否缓存',
     component: 'RadioButtonGroup',
-    defaultValue: '0',
+    defaultValue: false,
     componentProps: {
       options: [
-        { label: '否', value: '0' },
-        { label: '是', value: '1' },
+        { label: '否', value: false },
+        { label: '是', value: true },
       ],
     },
     ifShow: ({ values }) => isMenu(values.type),
   },
 
   {
-    field: 'show',
+    field: 'isShow',
     label: '是否显示',
     component: 'RadioButtonGroup',
-    defaultValue: '0',
+    defaultValue: false,
     componentProps: {
       options: [
-        { label: '是', value: '0' },
-        { label: '否', value: '1' },
+        { label: '是', value: false },
+        { label: '否', value: true },
       ],
     },
     ifShow: ({ values }) => !isButton(values.type),
