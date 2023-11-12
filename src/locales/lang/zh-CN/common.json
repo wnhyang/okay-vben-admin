@@ -16,5 +16,18 @@
   "back": "返回",
 
   "light": "亮色主题",
-  "dark": "黑暗主题"
+  "dark": "黑暗主题",
+
+  "deleteSuccessText": "删除成功",
+  "deleteFailText": "删除失败",
+  "saveSuccessText": "保存成功",
+  "saveFailText": "保存失败",
+  "querySuccessText": "查询成功",
+  "queryFailText": "查询失败",
+  "resetSuccessText": "重置成功",
+  "resetFailText": "重置失败",
+  "updateSuccessText": "更新成功",
+  "updateFailText": "更新失败",
+  "createSuccessText": "创建成功",
+  "createFailText": "创建失败"
 }

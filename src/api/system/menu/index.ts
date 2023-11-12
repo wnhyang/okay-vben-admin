@@ -1,4 +1,3 @@
-import { PageResult } from '/@/api/model/baseModel';
 import { defHttp } from '/@/utils/http/axios';
 
 export type MenuParams = {

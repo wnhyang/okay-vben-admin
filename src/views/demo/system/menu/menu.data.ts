@@ -12,6 +12,17 @@ export const columns: BasicColumn[] = [
     align: 'left',
   },
   {
+    title: '菜单类型',
+    dataIndex: 'type',
+    width: 80,
+    customRender: ({ record }) => {
+      const type = record.type;
+      const text = isDir(type) ? '目录' : isMenu(type) ? '菜单' : isButton(type) ? '按钮' : '';
+      const color = isDir(type) ? 'blue' : isMenu(type) ? 'green' : isButton(type) ? 'red' : '';
+      return h(Tag, { color: color }, () => text);
+    },
+  },
+  {
     title: '图标',
     dataIndex: 'icon',
     width: 50,
@@ -108,12 +119,14 @@ export const formSchema: FormSchema[] = [
   {
     field: 'parentId',
     label: '上级菜单',
-    component: 'ApiTreeSelect',
+    component: 'TreeSelect',
     defaultValue: 0,
     componentProps: {
-      api: getMenuSimpleList,
-      labelField: 'title',
-      valueField: 'id',
+      fieldNames: {
+        label: 'title',
+        key: 'id',
+        value: 'id',
+      },
       getPopupContainer: () => document.body,
     },
   },
@@ -150,6 +163,7 @@ export const formSchema: FormSchema[] = [
     field: 'permission',
     label: '权限标识',
     component: 'Input',
+    required: true,
     ifShow: ({ values }) => !isDir(values.type),
   },
   {

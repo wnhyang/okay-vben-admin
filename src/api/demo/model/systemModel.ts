@@ -1,5 +1,3 @@
-import { PageParam, PageResult } from '/@/api/model/baseModel';
-
 export type AccountParams = PageParam & {
   account?: string;
   nickname?: string;

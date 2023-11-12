@@ -15,7 +15,12 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './menu.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
-  import { updateMenu, createMenu } from '/@/api/system/menu';
+  import { updateMenu, createMenu, getMenu, getMenuSimpleList } from '/@/api/system/menu';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { useMessage } from '@/hooks/web/useMessage';
+
+  const { t } = useI18n();
+  const { createMessage } = useMessage();
 
   export default defineComponent({
     name: 'MenuDrawer',
@@ -24,7 +29,7 @@
     setup(_, { emit }) {
       const isUpdate = ref(true);
 
-      const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
+      const [registerForm, { resetFields, setFieldsValue, updateSchema, validate }] = useForm({
         labelWidth: 100,
         schemas: formSchema,
         showActionButtonGroup: false,
@@ -37,10 +42,16 @@
         isUpdate.value = !!data?.isUpdate;
 
         if (unref(isUpdate)) {
+          const res = await getMenu(data.record.id);
           setFieldsValue({
-            ...data.record,
+            ...res,
           });
         }
+        const treeData = await getMenuSimpleList();
+        updateSchema({
+          field: 'parentId',
+          componentProps: { treeData },
+        });
       });
 
       const getTitle = computed(() => (!unref(isUpdate) ? '新增菜单' : '编辑菜单'));
@@ -49,16 +60,17 @@
         try {
           const values = await validate();
           setDrawerProps({ confirmLoading: true });
-          // TODO custom api
-          // 更新菜单
           console.log(values);
           if (unref(isUpdate)) {
-            updateMenu(values);
+            await updateMenu(values);
           } else {
-            createMenu(values);
+            await createMenu(values);
           }
           closeDrawer();
           emit('success');
+          createMessage.success(
+            unref(isUpdate) ? t('common.updateSuccessText') : t('common.createSuccessText'),
+          );
         } finally {
           setDrawerProps({ confirmLoading: false });
         }

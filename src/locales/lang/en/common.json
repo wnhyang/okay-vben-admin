@@ -13,5 +13,18 @@
   "redo": "Refresh", 
   "back": "Back", 
   "light": "Light", 
-  "dark": "Dark"
+  "dark": "Dark",
+
+  "deleteSuccessText": "delete success",
+  "deleteFailText": "delete fail",
+  "saveSuccessText": "save success",
+  "saveFailText": "save fail",
+  "querySuccessText": "query success",
+  "queryFailText": "query fail",
+  "resetSuccessText": "reset success",
+  "resetFailText": "reset fail",
+  "updateSuccessText": "update success",
+  "updateFailText": "update fail",
+  "createSuccessText": "create success",
+  "createFailText": "create fail"
 }

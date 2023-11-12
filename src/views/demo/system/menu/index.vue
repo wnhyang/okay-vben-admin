@@ -39,6 +39,11 @@
   import MenuDrawer from './MenuDrawer.vue';
 
   import { columns, searchFormSchema } from './menu.data';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { useMessage } from '@/hooks/web/useMessage';
+
+  const { t } = useI18n();
+  const { createMessage } = useMessage();
 
   export default defineComponent({
     name: 'MenuManagement',
@@ -84,9 +89,11 @@
         });
       }
 
-      function handleDelete(record: Recordable) {
+      async function handleDelete(record: Recordable) {
         console.log(record);
-        deleteMenu(record.id);
+        await deleteMenu(record.id);
+        createMessage.success(t('common.deleteSuccessText'));
+        reload();
       }
 
       function handleSuccess() {
@@ -110,4 +117,3 @@
     },
   });
 </script>
-../../../../api/system/menu
