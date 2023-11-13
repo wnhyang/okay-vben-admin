@@ -36,11 +36,11 @@ export interface ErrorLogInfo {
 }
 
 export interface UserInfo {
-  userId: string | number;
+  id: string | number;
   username: string;
-  realName: string;
+  nickname: string;
   avatar: string;
-  desc?: string;
+  remark?: string;
   homePath?: string;
   roles: RoleInfo[];
 }

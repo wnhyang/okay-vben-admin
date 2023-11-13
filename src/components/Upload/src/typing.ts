@@ -1,5 +1,5 @@
 import { BasicColumn } from '../../Table';
-import { UploadApiResult } from '/@/api/sys/model/uploadModel';
+import { UploadApiResult } from '../../../api/base/model/uploadModel';
 
 export enum UploadResultStatus {
   SUCCESS = 'success',

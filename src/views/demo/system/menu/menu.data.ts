@@ -2,7 +2,7 @@ import { BasicColumn, FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
 import Icon from '@/components/Icon/Icon.vue';
-import { getMenuSimpleList } from '@/api/system/menu';
+import { SystemMenuTypeEnum } from '/@/enums/menuEnum';
 
 export const columns: BasicColumn[] = [
   {
@@ -63,9 +63,9 @@ export const columns: BasicColumn[] = [
   },
 ];
 
-const isDir = (type: number) => type === 0;
-const isMenu = (type: number) => type === 1;
-const isButton = (type: number) => type === 2;
+const isDir = (type: number) => type === SystemMenuTypeEnum.DIR;
+const isMenu = (type: number) => type === SystemMenuTypeEnum.MENU;
+const isButton = (type: number) => type === SystemMenuTypeEnum.BUTTON;
 
 export const searchFormSchema: FormSchema[] = [
   {
@@ -145,18 +145,27 @@ export const formSchema: FormSchema[] = [
     required: true,
     ifShow: ({ values }) => !isButton(values.type),
   },
-
   {
     field: 'path',
     label: '路由地址',
     component: 'Input',
     required: true,
+    helpMessage: '访问的路由地址，如：`user`。如需外网地址时，则以 `http(s)://` 开头',
     ifShow: ({ values }) => !isButton(values.type),
+  },
+  {
+    field: 'name',
+    label: '路由名称',
+    component: 'Input',
+    required: true,
+    helpMessage: '例如：SystemUser',
+    ifShow: ({ values }) => isMenu(values.type),
   },
   {
     field: 'component',
     label: '组件路径',
     component: 'Input',
+    helpMessage: '例如：system/user/index',
     ifShow: ({ values }) => isMenu(values.type),
   },
   {
@@ -164,6 +173,7 @@ export const formSchema: FormSchema[] = [
     label: '权限标识',
     component: 'Input',
     required: true,
+    helpMessage: 'Controller 方法上的权限字符，如：system:user:list',
     ifShow: ({ values }) => !isDir(values.type),
   },
   {
