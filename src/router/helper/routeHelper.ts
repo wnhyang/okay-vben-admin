@@ -36,6 +36,15 @@ function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
     } else if (name) {
       item.component = getParentLayout();
     }
+    const meta = item.meta || {};
+    meta.title = item.title || '';
+    meta.ignoreKeepAlive = !item.keepalive;
+    meta.icon = item.icon;
+    meta.orderNo = item.orderNo;
+    meta.hideMenu = item.isShow;
+    meta.hideBreadcrumb = item.hideBreadcrumb;
+    meta.currentActiveMenu = item.currentActiveMenu;
+    item.meta = meta;
     children && asyncImportRoute(children);
   });
 }
@@ -71,24 +80,37 @@ function dynamicImport(
 // 将背景对象变成路由对象
 export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModule[]): T[] {
   routeList.forEach((route) => {
+    if (route.isExt) {
+      route.component = 'IFrame';
+    } else if (route.children && route.parentId === '0') {
+      route.component = 'LAYOUT';
+    }
+
     const component = route.component as string;
     if (component) {
-      if (component.toUpperCase() === 'LAYOUT') {
+      const meta = route.meta || {};
+      meta.title = route.title || '';
+      meta.ignoreKeepAlive = !route.keepalive;
+      meta.icon = route.icon;
+      meta.orderNo = route.orderNo;
+      meta.hideMenu = route.isShow;
+      meta.hideBreadcrumb = route.hideBreadcrumb;
+      meta.currentActiveMenu = route.currentActiveMenu;
+      if (component.toUpperCase() === 'LAYOUT' || component.toUpperCase() === 'IFRAME') {
         route.component = LayoutMap.get(component.toUpperCase());
       } else {
         route.children = [cloneDeep(route)];
         route.component = LAYOUT;
-         //某些情况下如果name如果没有值， 多个一级路由菜单会导致页面404
-        if (!route.name || !route.menuName) {
-          warn('找不到菜单对应的name或menuName, 请检查数据!');
+        //某些情况下如果name如果没有值， 多个一级路由菜单会导致页面404
+        if (!route.name) {
+          warn('找不到菜单对应的name, 请检查数据!');
         }
-        route.name = `${route.name || route.menuName}Parent`;
+        route.name = `${route.name}Parent`;
         route.path = '';
-        const meta = route.meta || {};
         meta.single = true;
         meta.affix = false;
-        route.meta = meta;
       }
+      route.meta = meta;
     } else {
       warn('请正确配置路由：' + route?.name + '的component属性');
     }

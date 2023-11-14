@@ -6,6 +6,9 @@ import { useI18n } from '/@/hooks/web/useI18n';
 import { useUserStore } from './user';
 import { useAppStoreWithOut } from './app';
 import { toRaw } from 'vue';
+import about from '@/router/routes/modules/about';
+import dashboard from '@/router/routes/modules/dashboard';
+import system from '@/router/routes/modules/system';
 import { transformObjToRoute, flatMultiLevelRoutes } from '/@/router/helper/routeHelper';
 import { transformRouteToMenu } from '/@/router/helper/menuHelper';
 
@@ -17,8 +20,6 @@ import { asyncRoutes } from '/@/router/routes';
 import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 
 import { filter } from '/@/utils/helper/treeHelper';
-
-import { getMenuList, getPermCode } from '/@/api/base/login';
 
 import { useMessage } from '/@/hooks/web/useMessage';
 import { PageEnum } from '/@/enums/pageEnum';
@@ -102,8 +103,7 @@ export const usePermissionStore = defineStore({
       this.backMenuList = [];
       this.lastBuildMenuTime = 0;
     },
-    async changePermissionCode() {
-      const codeList = await getPermCode();
+    changePermissionCode(codeList: string[]) {
       this.setPermCodeList(codeList);
     },
 
@@ -115,6 +115,7 @@ export const usePermissionStore = defineStore({
 
       let routes: AppRouteRecordRaw[] = [];
       const roleList = toRaw(userStore.getRoleList) || [];
+      const userInfo = toRaw(userStore.getUserInfo) || {};
       const { permissionMode = projectSetting.permissionMode } = appStore.getProjectConfig;
 
       // 路由过滤器 在 函数filter 作为回调传入遍历使用
@@ -140,7 +141,7 @@ export const usePermissionStore = defineStore({
        * */
       const patchHomeAffix = (routes: AppRouteRecordRaw[]) => {
         if (!routes || routes.length === 0) return;
-        let homePath: string = userStore.getUserInfo.homePath || PageEnum.BASE_HOME;
+        let homePath: string = PageEnum.BASE_HOME;
 
         function patcher(routes: AppRouteRecordRaw[], parentPath = '') {
           if (parentPath) parentPath = parentPath + '/';
@@ -220,8 +221,9 @@ export const usePermissionStore = defineStore({
           // 这个功能可能只需要执行一次，实际项目可以自己放在合适的时间
           let routeList: AppRouteRecordRaw[] = [];
           try {
-            await this.changePermissionCode();
-            routeList = (await getMenuList()) as AppRouteRecordRaw[];
+            // TODO 暂时注释不修改权限，只能重新登录更新权限
+            // await this.changePermissionCode();
+            routeList = userInfo.menus as AppRouteRecordRaw[];
           } catch (error) {
             console.error(error);
           }
@@ -232,7 +234,7 @@ export const usePermissionStore = defineStore({
 
           //  Background routing to menu structure
           //  后台路由到菜单结构
-          const backMenuList = transformRouteToMenu(routeList);
+          const backMenuList = transformRouteToMenu([dashboard, ...routeList, about]);
           this.setBackMenuList(backMenuList);
 
           // remove meta.ignoreRoute item
@@ -241,9 +243,11 @@ export const usePermissionStore = defineStore({
           routeList = routeList.filter(routeRemoveIgnoreFilter);
 
           routeList = flatMultiLevelRoutes(routeList);
-          routes = [PAGE_NOT_FOUND_ROUTE, ...routeList];
+          routes = [PAGE_NOT_FOUND_ROUTE, dashboard, ...routeList, about];
           break;
       }
+      // 从用户中获取权限
+      if (userInfo) this.setPermCodeList(userInfo.permissions);
 
       routes.push(ERROR_LOG_ROUTE);
       patchHomeAffix(routes);

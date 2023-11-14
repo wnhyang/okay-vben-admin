@@ -36,7 +36,7 @@ export const columns: BasicColumn[] = [
     width: 180,
   },
   {
-    title: '组件',
+    title: '组件路径',
     dataIndex: 'component',
   },
   {
@@ -159,7 +159,7 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
     required: true,
     helpMessage: '例如：SystemUser',
-    ifShow: ({ values }) => isMenu(values.type),
+    ifShow: ({ values }) => !isButton(values.type),
   },
   {
     field: 'component',
@@ -172,7 +172,6 @@ export const formSchema: FormSchema[] = [
     field: 'permission',
     label: '权限标识',
     component: 'Input',
-    required: true,
     helpMessage: 'Controller 方法上的权限字符，如：system:user:list',
     ifShow: ({ values }) => !isDir(values.type),
   },

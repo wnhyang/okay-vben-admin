@@ -61,15 +61,15 @@
       });
 
       const avatar = computed(() => {
-        const { avatar } = userStore.getUserInfo;
+        const { avatar } = userStore.getUserInfo.user;
         console.log(avatar);
         return avatar || headerImg;
       });
 
       function updateAvatar({ src, data }) {
-        const userinfo = userStore.getUserInfo;
-        userinfo.avatar = src;
-        userStore.setUserInfo(userinfo);
+        const userInfo = userStore.getUserInfo;
+        userInfo.user.avatar = src;
+        userStore.setUserInfo(userInfo);
         console.log('data', data);
       }
 

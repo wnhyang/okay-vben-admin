@@ -24,21 +24,21 @@ export interface LoginResultModel {
   roles: RoleInfo[];
 }
 
+export interface userModel {
+  id: string | number;
+  avatar: string;
+  nickname: string;
+  remark: string;
+}
+
 /**
  * @description: Get user information return value
  */
 export interface GetUserInfoModel {
-  roles: RoleInfo[];
-  // 用户id
-  id: string | number;
-  // 用户名
-  username: string;
-  // 真实名字
-  nickname: string;
-  // 头像
-  avatar: string;
-  // 介绍
-  remark?: string;
+  user: userModel;
+  roles: string[];
+  permissions: string[];
+  menus: RouteItem[];
 }
 
 export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') {
@@ -76,14 +76,9 @@ export function getUserInfo() {
   return defHttp.get<GetUserInfoModel>({ url: '/system/user/info' }, { errorMessageMode: 'none' });
 }
 
-export function getPermCode() {
-  return defHttp.get<string[]>({ url: '/getPermCode' });
-}
-
 /**
  * @description: Get user menu based on id
  */
-
 export const getMenuList = () => {
   return defHttp.get<getMenuListResultModel>({ url: '/getMenuList' });
 };

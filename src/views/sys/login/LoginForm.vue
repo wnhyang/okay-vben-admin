@@ -98,6 +98,7 @@
   import { useMessage } from '/@/hooks/web/useMessage';
 
   import { useUserStore } from '/@/store/modules/user';
+  import { usePermissionStore } from '@/store/modules/permission';
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '/@/hooks/web/useDesign';
   //import { onKeyStroke } from '@vueuse/core';
@@ -110,6 +111,7 @@
   const { notification, createErrorModal } = useMessage();
   const { prefixCls } = useDesign('login');
   const userStore = useUserStore();
+  const permissionStore = usePermissionStore();
 
   const { setLoginState, getLoginState } = useLoginState();
   const { getFormRules } = useFormRules();
@@ -140,9 +142,10 @@
         mode: 'none', //不要默认的错误提示
       });
       if (userInfo) {
+        await permissionStore.changePermissionCode(userInfo.permissions);
         notification.success({
           message: t('sys.login.loginSuccessTitle'),
-          description: `${t('sys.login.loginSuccessDesc')}: ${userInfo.nickname}`,
+          description: `${t('sys.login.loginSuccessDesc')}: ${userInfo.user.nickname}`,
           duration: 3,
         });
       }

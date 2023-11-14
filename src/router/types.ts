@@ -1,6 +1,7 @@
 import type { RouteRecordRaw, RouteMeta } from 'vue-router';
 import { RoleEnum } from '/@/enums/roleEnum';
 import { defineComponent } from 'vue';
+import { __String } from 'typescript';
 
 export type Component<T = any> =
   | ReturnType<typeof defineComponent>
@@ -9,13 +10,28 @@ export type Component<T = any> =
 
 // @ts-ignore
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
-  name: string;
   meta: RouteMeta;
   component?: Component | string;
   components?: Component;
   children?: AppRouteRecordRaw[];
   props?: Recordable;
   fullPath?: string;
+  id?: number;
+  type?: number;
+  name: string;
+  path: string;
+  redirect?: string;
+  orderNo?: number;
+  title?: string;
+  icon?: string;
+  hideBreadcrumb?: boolean;
+  currentActiveMenu?: string;
+  keepalive?: boolean;
+  permission?: string;
+  parentId?: number | string;
+  isExt?: boolean;
+  isShow?: boolean;
+  status?: number;
 }
 
 export interface MenuTag {
