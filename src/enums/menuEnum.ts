@@ -48,12 +48,3 @@ export enum MixSidebarTriggerEnum {
   HOVER = 'hover',
   CLICK = 'click',
 }
-
-/**
- * 菜单的类型枚举
- */
-export const SystemMenuTypeEnum = {
-  DIR: 0, // 目录
-  MENU: 1, // 菜单
-  BUTTON: 2, // 按钮
-};

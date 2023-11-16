@@ -11,37 +11,6 @@ export const columns: BasicColumn[] = [
     width: 100,
   },
   {
-    title: '日志类型',
-    dataIndex: 'logType',
-    width: 120,
-  },
-  {
-    title: '账号',
-    dataIndex: 'account',
-    width: 120,
-  },
-  {
-    title: '登录IP',
-    dataIndex: 'userIp',
-    width: 120,
-  },
-  {
-    title: 'userAgent',
-    dataIndex: 'userAgent',
-    width: 400,
-  },
-  {
-    title: '登录结果',
-    dataIndex: 'result',
-    width: 100,
-  },
-  {
-    title: '登录日期',
-    dataIndex: 'createTime',
-    width: 180,
-  },
-
-  {
     title: '操作模块',
     dataIndex: 'module',
     width: 200,

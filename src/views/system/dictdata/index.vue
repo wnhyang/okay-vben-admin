@@ -8,16 +8,16 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable } from '/@/components/Table';
-  import { columns, searchFormSchema } from './operatelog.data';
-  import { getOperateLogPage } from '/@/api/system/operatelog';
+  import { columns, searchFormSchema } from './dictdata.data';
+  import { getDictDataPage } from '/@/api/system/dictdata';
 
   export default defineComponent({
-    name: 'LoginLog',
+    name: 'DictData',
     components: { BasicTable },
     setup() {
       const [registerTable] = useTable({
-        title: '操作日志',
-        api: getOperateLogPage,
+        title: '字典数据',
+        api: getDictDataPage,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -37,4 +37,3 @@
     },
   });
 </script>
-./operatelog.data

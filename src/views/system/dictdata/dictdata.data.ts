@@ -5,37 +5,42 @@ import Icon from '@/components/Icon/Icon.vue';
 
 export const columns: BasicColumn[] = [
   {
-    title: '登录编号',
+    title: '字典数据编号',
     dataIndex: 'id',
     width: 100,
   },
   {
-    title: '日志类型',
-    dataIndex: 'loginType',
-    width: 120,
-  },
-  {
-    title: '账号',
-    dataIndex: 'account',
-    width: 120,
-  },
-  {
-    title: '登录IP',
-    dataIndex: 'userIp',
-    width: 120,
-  },
-  {
-    title: 'userAgent',
-    dataIndex: 'userAgent',
-    width: 400,
-  },
-  {
-    title: '登录结果',
-    dataIndex: 'result',
+    title: '字典标签',
+    dataIndex: 'label',
     width: 100,
   },
   {
-    title: '登录日期',
+    title: '字典键值',
+    dataIndex: 'value',
+    width: 100,
+  },
+  {
+    title: '字典排序',
+    dataIndex: 'sort',
+    width: 120,
+  },
+  {
+    title: '字典类型',
+    dataIndex: 'dictType',
+    width: 150,
+  },
+  {
+    title: '状态',
+    dataIndex: 'status',
+    width: 100,
+  },
+  {
+    title: '备注',
+    dataIndex: 'remark',
+    width: 200,
+  },
+  {
+    title: '创建时间',
     dataIndex: 'createTime',
     width: 180,
   },
@@ -43,20 +48,20 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    label: '登录IP',
-    field: 'userIp',
+    label: '字典标签',
+    field: 'label',
     component: 'Input',
     colProps: { span: 8 },
   },
   {
-    label: '用户名称',
-    field: 'username',
+    label: '字典类型',
+    field: 'dictType',
     component: 'Input',
     colProps: { span: 8 },
   },
   {
-    label: '结果',
-    field: 'result',
+    label: '状态',
+    field: 'status',
     component: 'Select',
     componentProps: {
       options: [
@@ -67,7 +72,7 @@ export const searchFormSchema: FormSchema[] = [
     colProps: { span: 8 },
   },
   {
-    label: '登录时间',
+    label: '创建时间',
     field: 'createTime',
     component: 'RangePicker',
     colProps: { span: 8 },

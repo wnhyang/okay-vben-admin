@@ -15,7 +15,7 @@ declare interface PageParam {
 
 declare interface PageResult<T = any> {
   list: T[];
-  total: number;
+  total: string | number;
 }
 
 declare type LabelValueOptions = {

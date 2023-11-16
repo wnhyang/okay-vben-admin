@@ -1,8 +1,7 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
 import { h } from 'vue';
-import { Tag } from 'ant-design-vue';
 import Icon from '@/components/Icon/Icon.vue';
-import { SystemMenuTypeEnum } from '/@/enums/menuEnum';
+import { isDir, isMenu, isButton, renderMenuType, renderStatus } from '/@/utils/dict';
 
 export const columns: BasicColumn[] = [
   {
@@ -15,12 +14,7 @@ export const columns: BasicColumn[] = [
     title: '菜单类型',
     dataIndex: 'type',
     width: 80,
-    customRender: ({ record }) => {
-      const type = record.type;
-      const text = isDir(type) ? '目录' : isMenu(type) ? '菜单' : isButton(type) ? '按钮' : '';
-      const color = isDir(type) ? 'blue' : isMenu(type) ? 'green' : isButton(type) ? 'red' : '';
-      return h(Tag, { color: color }, () => text);
-    },
+    customRender: ({ record }) => renderMenuType(record.type),
   },
   {
     title: '图标',
@@ -48,13 +42,7 @@ export const columns: BasicColumn[] = [
     title: '状态',
     dataIndex: 'status',
     width: 80,
-    customRender: ({ record }) => {
-      const status = record.status;
-      const enable = ~~status === 0;
-      const color = enable ? 'green' : 'red';
-      const text = enable ? '启用' : '停用';
-      return h(Tag, { color: color }, () => text);
-    },
+    customRender: ({ record }) => renderStatus(record.status),
   },
   {
     title: '创建时间',
@@ -62,10 +50,6 @@ export const columns: BasicColumn[] = [
     width: 180,
   },
 ];
-
-const isDir = (type: number) => type === SystemMenuTypeEnum.DIR;
-const isMenu = (type: number) => type === SystemMenuTypeEnum.MENU;
-const isButton = (type: number) => type === SystemMenuTypeEnum.BUTTON;
 
 export const searchFormSchema: FormSchema[] = [
   {
