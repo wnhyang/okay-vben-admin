@@ -8,13 +8,15 @@
     @ok="handleSubmit"
   >
     <BasicForm @register="registerForm">
-      <template #menu="{ model, field }">
+      <template #menuIds="{ model, field }">
         <BasicTree
-          v-model:value="model[field]"
+          v-model:checkedKeys="model[field]"
           :treeData="treeData"
           :fieldNames="{ title: 'title', key: 'id' }"
           checkable
           toolbar
+          search
+          defaultExpandAll
           title="菜单分配"
         />
       </template>
@@ -28,8 +30,13 @@
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
 
+  import { t } from '@/hooks/web/useI18n';
+  import { useMessage } from '/@/hooks/web/useMessage';
+  import { createRole, updateRole, getRole } from '/@/api/system/role';
   import { getMenuSimpleList } from '/@/api/system/menu';
+  import { getRoleMenuList, roleMenu } from '/@/api/system/permission';
 
+  const { createMessage } = useMessage();
   const emit = defineEmits(['success', 'register']);
   const isUpdate = ref(true);
   const treeData = ref<TreeItem[]>([]);
@@ -51,8 +58,11 @@
     isUpdate.value = !!data?.isUpdate;
 
     if (unref(isUpdate)) {
+      const role = await getRole(data.record.id);
+      const menuIds = await getRoleMenuList(data.record.id);
+      role.menuIds = menuIds;
       setFieldsValue({
-        ...data.record,
+        ...role,
       });
     }
   });
@@ -63,10 +73,20 @@
     try {
       const values = await validate();
       setDrawerProps({ confirmLoading: true });
-      // TODO custom api
-      console.log(values);
+
+      if (unref(isUpdate)) {
+        await updateRole(values);
+        await roleMenu({ roleId: values.id, menuIds: values.menuIds });
+      } else {
+        const res = await createRole(values);
+        console.log(res);
+        await roleMenu({ roleId: res, menuIds: values.menuIds });
+      }
       closeDrawer();
       emit('success');
+      createMessage.success(
+        unref(isUpdate) ? t('common.updateSuccessText') : t('common.createSuccessText'),
+      );
     } finally {
       setDrawerProps({ confirmLoading: false });
     }

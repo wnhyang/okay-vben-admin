@@ -15,7 +15,8 @@ export interface DictDataPageReqVO extends PageParam {
   label?: string;
   dictType?: string;
   status?: number;
-  createTime?: Date[];
+  startTime?: Date;
+  endTime?: Date;
 }
 
 export const getDictData = (id: number) => defHttp.get({ url: `/system/dictData/get?id=${id}` });

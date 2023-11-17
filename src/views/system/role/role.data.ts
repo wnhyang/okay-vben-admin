@@ -58,21 +58,32 @@ export const searchFormSchema: FormSchema[] = [
     component: 'Select',
     componentProps: {
       options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
+        { label: '启用', value: 0 },
+        { label: '停用', value: 1 },
       ],
     },
     colProps: { span: 8 },
   },
   {
     label: '创建时间',
-    field: 'createTime',
+    field: 'dateTime',
     component: 'RangePicker',
-    colProps: { span: 8 },
+    colProps: { span: 12 },
+    componentProps: {
+      format: 'YYYY-MM-DD HH:mm:ss',
+      // 传给后端的时间格式--
+      valueFormat: 'YYYY-MM-DD HH:mm:ss',
+    },
   },
 ];
 
 export const formSchema: FormSchema[] = [
+  {
+    label: '角色编号',
+    field: 'id',
+    show: false,
+    component: 'Input',
+  },
   {
     field: 'name',
     label: '角色名称',
@@ -86,18 +97,6 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
   },
   {
-    field: 'status',
-    label: '状态',
-    component: 'RadioButtonGroup',
-    defaultValue: '0',
-    componentProps: {
-      options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
-      ],
-    },
-  },
-  {
     field: 'sort',
     label: '排序',
     required: true,
@@ -109,9 +108,21 @@ export const formSchema: FormSchema[] = [
     component: 'InputTextArea',
   },
   {
+    field: 'status',
+    label: '状态',
+    component: 'RadioButtonGroup',
+    defaultValue: 0,
+    componentProps: {
+      options: [
+        { label: '启用', value: 0 },
+        { label: '停用', value: 1 },
+      ],
+    },
+  },
+  {
     label: ' ',
-    field: 'menu',
-    slot: 'menu',
+    field: 'menuIds',
+    slot: 'menuIds',
     component: 'ApiTree',
   },
 ];

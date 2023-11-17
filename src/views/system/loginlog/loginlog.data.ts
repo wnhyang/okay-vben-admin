@@ -68,8 +68,13 @@ export const searchFormSchema: FormSchema[] = [
   },
   {
     label: '登录时间',
-    field: 'createTime',
+    field: 'dateTime',
     component: 'RangePicker',
-    colProps: { span: 8 },
+    colProps: { span: 12 },
+    componentProps: {
+      format: 'YYYY-MM-DD HH:mm:ss',
+      // 传给后端的时间格式--
+      valueFormat: 'YYYY-MM-DD HH:mm:ss',
+    },
   },
 ];

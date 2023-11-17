@@ -13,7 +13,8 @@ export interface DictTypePageReqVO extends PageParam {
   type?: string;
   name?: string;
   status?: number;
-  createTime?: Date[];
+  startTime?: Date;
+  endTime?: Date;
 }
 
 export const getDictType = (id: number) => defHttp.get({ url: `/system/dictType/get?id=${id}` });

@@ -14,7 +14,8 @@ export interface RolePageReqVO {
   name?: string;
   value?: string;
   status?: number;
-  createTime?: Date[];
+  startTime?: Date;
+  endTime?: Date;
 }
 
 export const getRole = (id: number) => defHttp.get({ url: `/system/role/get?id=${id}` });

@@ -5,7 +5,8 @@ export interface OperateLogPageReqVO extends PageParam {
   userNickname?: string;
   type?: number;
   success?: boolean;
-  startTime?: Date[];
+  startTime?: Date;
+  endTime?: Date;
 }
 
 export const getOperateLogPage = (params: OperateLogPageReqVO) =>

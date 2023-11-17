@@ -8,8 +8,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable } from '/@/components/Table';
-  import { columns, searchFormSchema } from './loginlog.data';
-  import { getLoginLogPage } from '/@/api/system/loginlog';
+  import { columns, searchFormSchema } from './loginLog.data';
+  import { getLoginLogPage } from '/@/api/system/loginLog';
 
   export default defineComponent({
     name: 'LoginLog',
@@ -22,6 +22,7 @@
         formConfig: {
           labelWidth: 120,
           schemas: searchFormSchema,
+          fieldMapToTime: [['dateTime', ['startTime', 'endTime'], 'YYYY-MM-DD HH:mm:ss']],
         },
         striped: false,
         useSearchForm: true,
@@ -37,3 +38,4 @@
     },
   });
 </script>
+./loginLog.data../../../api/system/loginLog

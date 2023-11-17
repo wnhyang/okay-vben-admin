@@ -4,7 +4,8 @@ export interface LoginLogPageReqVO extends PageParam {
   userIp?: string;
   username?: string;
   result?: boolean;
-  createTime?: Date[];
+  startTime?: Date;
+  endTime?: Date;
 }
 
 export const getLoginLogPage = (params: LoginLogPageReqVO) =>

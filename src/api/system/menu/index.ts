@@ -32,6 +32,8 @@ export const getMenuList = (params?: MenuParams) =>
 
 export const getMenuSimpleList = () => defHttp.get<MenuList>({ url: '/system/menu/simpleList' });
 
+export const getMenuSimpleListA = () => defHttp.get<MenuList>({ url: '/system/menu/simpleListA' });
+
 export const updateMenu = (data: MenuVO) => defHttp.put({ url: '/system/menu/update', data });
 
 export const createMenu = (data: MenuVO) => defHttp.post({ url: '/system/menu/create', data });

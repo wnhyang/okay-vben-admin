@@ -8,8 +8,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable } from '/@/components/Table';
-  import { columns, searchFormSchema } from './dictdata.data';
-  import { getDictDataPage } from '/@/api/system/dictdata';
+  import { columns, searchFormSchema } from './dictData.data';
+  import { getDictDataPage } from '/@/api/system/dictData';
 
   export default defineComponent({
     name: 'DictData',
@@ -22,6 +22,7 @@
         formConfig: {
           labelWidth: 120,
           schemas: searchFormSchema,
+          fieldMapToTime: [['dateTime', ['startTime', 'endTime'], 'YYYY-MM-DD HH:mm:ss']],
         },
         striped: false,
         useSearchForm: true,
@@ -37,3 +38,4 @@
     },
   });
 </script>
+../../../api/system/dictData

@@ -15,7 +15,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './menu.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
-  import { updateMenu, createMenu, getMenu, getMenuSimpleList } from '/@/api/system/menu';
+  import { updateMenu, createMenu, getMenu, getMenuSimpleListA } from '/@/api/system/menu';
   import { useI18n } from '@/hooks/web/useI18n';
   import { useMessage } from '@/hooks/web/useMessage';
 
@@ -47,7 +47,7 @@
             ...res,
           });
         }
-        const treeData = await getMenuSimpleList();
+        const treeData = await getMenuSimpleListA();
         updateSchema({
           field: 'parentId',
           componentProps: { treeData },
