@@ -146,6 +146,14 @@ export const formSchema: FormSchema[] = [
     ifShow: ({ values }) => !isButton(values.type),
   },
   {
+    field: 'redirect',
+    label: 'redirect',
+    component: 'Input',
+    required: true,
+    helpMessage: '例如：/system/user',
+    ifShow: ({ values }) => isDir(values.type),
+  },
+  {
     field: 'component',
     label: '组件路径',
     component: 'Input',
