@@ -1,7 +1,6 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
-import { setRoleStatus } from '/@/api/demo/system';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { renderStatus } from '/@/utils/dict';
 

@@ -12,6 +12,11 @@
     <template #overlay>
       <Menu @click="handleMenuClick">
         <MenuItem
+          key="profileSetting"
+          :text="t('layout.header.accountSetting')"
+          icon="ion:person-outline"
+        />
+        <MenuItem
           key="doc"
           :text="t('layout.header.dropdownItemDoc')"
           icon="ion:document-text-outline"
@@ -59,10 +64,11 @@
   import headerImg from '/@/assets/images/header.jpg';
   import { propTypes } from '/@/utils/propTypes';
   import { openWindow } from '/@/utils';
+  import { useGo } from '/@/hooks/web/usePage';
 
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
-  type MenuEvent = 'logout' | 'doc' | 'lock' | 'api';
+  type MenuEvent = 'profileSetting' | 'logout' | 'doc' | 'lock' | 'api';
 
   export default defineComponent({
     name: 'UserDropdown',
@@ -90,6 +96,7 @@
 
       const [register, { openModal }] = useModal();
       const [registerApi, { openModal: openApiModal }] = useModal();
+      const go = useGo();
 
       function handleLock() {
         openModal(true);
@@ -109,8 +116,16 @@
         openWindow(DOC_URL);
       }
 
+      // open profileSetting
+      function openProfileSetting() {
+        go('/profile/setting');
+      }
+
       function handleMenuClick(e: MenuInfo) {
         switch (e.key as MenuEvent) {
+          case 'profileSetting':
+            openProfileSetting();
+            break;
           case 'logout':
             handleLoginOut();
             break;

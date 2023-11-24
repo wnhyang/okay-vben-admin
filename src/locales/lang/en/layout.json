@@ -4,6 +4,7 @@
     "onlineDocument": "Document"
   }, 
   "header": {
+    "accountSetting": "Account Setting",
     "dropdownChangeApi": "Change Api", 
     "dropdownItemDoc": "Document", 
     "dropdownItemLoginOut": "Log Out", 

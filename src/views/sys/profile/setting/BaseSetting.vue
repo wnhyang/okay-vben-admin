@@ -31,8 +31,8 @@
   import { useMessage } from '/@/hooks/web/useMessage';
 
   import headerImg from '/@/assets/images/header.jpg';
-  import { accountInfoApi } from '/@/api/demo/account';
-  import { baseSetschemas } from './data';
+  import { getUserProfile } from '/@/api/base/profile';
+  import { baseSetSchemas } from './data';
   import { useUserStore } from '/@/store/modules/user';
   import { uploadApi } from '/@/api/base/upload';
 
@@ -51,12 +51,12 @@
 
       const [register, { setFieldsValue }] = useForm({
         labelWidth: 120,
-        schemas: baseSetschemas,
+        schemas: baseSetSchemas,
         showActionButtonGroup: false,
       });
 
       onMounted(async () => {
-        const data = await accountInfoApi();
+        const data = await getUserProfile();
         setFieldsValue(data);
       });
 

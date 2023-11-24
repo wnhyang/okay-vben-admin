@@ -1,7 +1,6 @@
 <template>
-  <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
-    <DeptTree class="w-1/4 xl:w-1/5" @select="handleSelect" />
-    <BasicTable @register="registerTable" class="w-3/4 xl:w-4/5" :searchInfo="searchInfo">
+  <div>
+    <BasicTable @register="registerTable" :searchInfo="searchInfo">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate">新增账号</a-button>
       </template>
@@ -34,33 +33,31 @@
         </template>
       </template>
     </BasicTable>
-    <AccountModal @register="registerModal" @success="handleSuccess" />
-  </PageWrapper>
+    <UserModal @register="registerModal" @success="handleSuccess" />
+  </div>
 </template>
 <script lang="ts">
   import { defineComponent, reactive } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getAccountList } from '/@/api/demo/system';
-  import { PageWrapper } from '/@/components/Page';
-  import DeptTree from './DeptTree.vue';
+  import { getUserPage } from '/@/api/system/user';
 
   import { useModal } from '/@/components/Modal';
-  import AccountModal from './AccountModal.vue';
+  import UserModal from './UserModal.vue';
 
-  import { columns, searchFormSchema } from './account.data';
+  import { columns, searchFormSchema } from './user.data';
   import { useGo } from '/@/hooks/web/usePage';
 
   export default defineComponent({
-    name: 'AccountManagement',
-    components: { BasicTable, PageWrapper, DeptTree, AccountModal, TableAction },
+    name: 'UserManagement',
+    components: { BasicTable, UserModal, TableAction },
     setup() {
       const go = useGo();
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload, updateTableDataRecord }] = useTable({
         title: '账号列表',
-        api: getAccountList,
+        api: getUserPage,
         rowKey: 'id',
         columns,
         formConfig: {
@@ -112,13 +109,10 @@
         }
       }
 
-      function handleSelect(deptId = '') {
-        searchInfo.deptId = deptId;
-        reload();
-      }
-
       function handleView(record: Recordable) {
-        go('/system/account_detail/' + record.id);
+        console.log(record);
+
+        go('/system/userDetail/' + record.id);
       }
 
       return {
@@ -128,7 +122,6 @@
         handleEdit,
         handleDelete,
         handleSuccess,
-        handleSelect,
         handleView,
         searchInfo,
       };

@@ -169,6 +169,13 @@ export const formSchema: FormSchema[] = [
     ifShow: ({ values }) => !isDir(values.type),
   },
   {
+    field: 'currentActiveMenu',
+    label: '激活菜单',
+    component: 'Input',
+    helpMessage: '用于配置详情页时左侧激活的菜单路径，如：/system/user',
+    ifShow: ({ values }) => isMenu(values.type),
+  },
+  {
     field: 'status',
     label: '状态',
     component: 'RadioButtonGroup',

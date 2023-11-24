@@ -10,7 +10,7 @@ export interface RoleVO {
   createTime: Date;
 }
 
-export interface RolePageReqVO {
+export interface RolePageReqVO extends PageParam {
   name?: string;
   value?: string;
   status?: number;
@@ -28,3 +28,5 @@ export const deleteRole = (id: number) => defHttp.delete({ url: `/system/role/de
 
 export const getRolePage = (params: RolePageReqVO) =>
   defHttp.get({ url: '/system/role/page', params });
+
+export const getSimpleRoleList = () => defHttp.get({ url: '/system/role/simpleList' });

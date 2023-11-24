@@ -1,4 +1,4 @@
-import { getAllRoleList, isAccountExist } from '/@/api/demo/system';
+import { getSimpleRoleList } from '/@/api/system/role';
 import { BasicColumn, FormSchema } from '/@/components/Table';
 
 /**
@@ -26,7 +26,7 @@ export const deptMap = (() => {
 export const columns: BasicColumn[] = [
   {
     title: '用户名',
-    dataIndex: 'account',
+    dataIndex: 'username',
     width: 120,
   },
   {
@@ -50,13 +50,6 @@ export const columns: BasicColumn[] = [
     width: 200,
   },
   {
-    title: '所属部门',
-    dataIndex: 'dept',
-    customRender: ({ value }) => {
-      return deptMap[value];
-    },
-  },
-  {
     title: '备注',
     dataIndex: 'remark',
   },
@@ -64,7 +57,7 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'account',
+    field: 'username',
     label: '用户名',
     component: 'Input',
     colProps: { span: 8 },
@@ -77,32 +70,7 @@ export const searchFormSchema: FormSchema[] = [
   },
 ];
 
-export const accountFormSchema: FormSchema[] = [
-  {
-    field: 'account',
-    label: '用户名',
-    component: 'Input',
-    helpMessage: ['本字段演示异步验证', '不能输入带有admin的用户名'],
-    rules: [
-      {
-        required: true,
-        message: '请输入用户名',
-      },
-      {
-        trigger: 'blur',
-        validator(_, value) {
-          return new Promise((resolve, reject) => {
-            if (!value) return resolve();
-            isAccountExist(value)
-              .then(resolve)
-              .catch((err) => {
-                reject(err.message || '验证失败');
-              });
-          });
-        },
-      },
-    ],
-  },
+export const userFormSchema: FormSchema[] = [
   {
     field: 'pwd',
     label: '密码',
@@ -115,23 +83,9 @@ export const accountFormSchema: FormSchema[] = [
     field: 'role',
     component: 'ApiSelect',
     componentProps: {
-      api: getAllRoleList,
-      labelField: 'roleName',
-      valueField: 'roleValue',
-    },
-    required: true,
-  },
-  {
-    field: 'dept',
-    label: '所属部门',
-    component: 'TreeSelect',
-    componentProps: {
-      fieldNames: {
-        label: 'deptName',
-        key: 'id',
-        value: 'id',
-      },
-      getPopupContainer: () => document.body,
+      api: getSimpleRoleList,
+      labelField: 'name',
+      valueField: 'id',
     },
     required: true,
   },
