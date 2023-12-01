@@ -38,4 +38,3 @@
     },
   });
 </script>
-../../../api/system/dictData

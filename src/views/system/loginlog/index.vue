@@ -38,4 +38,3 @@
     },
   });
 </script>
-./loginLog.data../../../api/system/loginLog

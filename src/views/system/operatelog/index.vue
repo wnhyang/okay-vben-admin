@@ -38,4 +38,3 @@
     },
   });
 </script>
-./operatelog.data ./operateLog.data../../../api/system/operateLog

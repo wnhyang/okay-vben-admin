@@ -38,4 +38,3 @@
     },
   });
 </script>
-./dictType.data../../../api/system/dictType
