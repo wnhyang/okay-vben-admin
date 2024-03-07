@@ -33,6 +33,7 @@
   import { useGo } from '/@/hooks/web/usePage';
   import { useTabs } from '/@/hooks/web/useTabs';
   import { Tabs } from 'ant-design-vue';
+  import { getUser } from '@/api/system/user/index';
 
   defineOptions({ name: 'UserDetail' });
 
@@ -49,9 +50,11 @@
   const { setTitle } = useTabs();
   // TODO
   // 本页代码仅作演示，实际应当通过userId从接口获得用户的相关资料
+  const user = getUser(Number(userId.value));
+  console.log(user);
 
   // 设置Tab的标题（不会影响页面标题）
-  setTitle('详情：用户' + userId.value);
+  setTitle('详情：用户' + 'cc');
 
   // 页面左侧点击返回链接时的操作
   function goBack() {
