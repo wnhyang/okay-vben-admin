@@ -1,5 +1,6 @@
 import { getSimpleRoleList } from '/@/api/system/role';
 import { BasicColumn, FormSchema } from '/@/components/Table';
+import { useRender } from '/@/hooks/web/useRender';
 
 /**
  * transform mock data
@@ -40,18 +41,27 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    width: 180,
+    title: '手机号',
+    dataIndex: 'mobile',
+    width: 120,
   },
   {
     title: '角色',
-    dataIndex: 'role',
+    dataIndex: 'roles',
     width: 200,
+    customRender: ({ text }) => {
+      return useRender.renderTags(text);
+    },
   },
   {
     title: '备注',
     dataIndex: 'remark',
+    width: 200,
+  },
+  {
+    title: '创建时间',
+    dataIndex: 'createTime',
+    width: 180,
   },
 ];
 
@@ -72,21 +82,15 @@ export const searchFormSchema: FormSchema[] = [
 
 export const userFormSchema: FormSchema[] = [
   {
-    field: 'pwd',
-    label: '密码',
-    component: 'InputPassword',
-    required: true,
-    ifShow: false,
+    field: 'id',
+    label: '用户编号',
+    component: 'Input',
+    show: false,
   },
   {
-    label: '角色',
-    field: 'role',
-    component: 'ApiSelect',
-    componentProps: {
-      api: getSimpleRoleList,
-      labelField: 'name',
-      valueField: 'id',
-    },
+    field: 'username',
+    label: '用户名',
+    component: 'Input',
     required: true,
   },
   {
@@ -95,14 +99,42 @@ export const userFormSchema: FormSchema[] = [
     component: 'Input',
     required: true,
   },
-
+  {
+    field: 'sex',
+    label: '性别',
+    component: 'RadioButtonGroup',
+    defaultValue: 0,
+    componentProps: {
+      options: [
+        { label: '男', value: 0, key: 0 },
+        { label: '女', value: 1, key: 1 },
+      ],
+    },
+  },
+  {
+    label: '手机号',
+    field: 'mobile',
+    component: 'Input',
+    required: true,
+  },
   {
     label: '邮箱',
     field: 'email',
     component: 'Input',
     required: true,
   },
-
+  {
+    label: '角色',
+    field: 'roleIds',
+    component: 'ApiSelect',
+    componentProps: {
+      api: () => getSimpleRoleList(),
+      labelField: 'name',
+      valueField: 'id',
+      mode: 'tags',
+    },
+    required: true,
+  },
   {
     label: '备注',
     field: 'remark',

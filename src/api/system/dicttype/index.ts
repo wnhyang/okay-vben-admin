@@ -17,16 +17,15 @@ export interface DictTypePageReqVO extends PageParam {
   endTime?: Date;
 }
 
-export const getDictType = (id: number) => defHttp.get({ url: `/system/dictType/get?id=${id}` });
+export const getDictType = (id: number) => defHttp.get({ url: `/system/dictType?id=${id}` });
 
-export const createDictType = (data: DictTypeVO) =>
-  defHttp.post({ url: '/system/dictType/create', data });
+export const createDictType = (data: DictTypeVO) => defHttp.post({ url: '/system/dictType', data });
 
-export const updateDictType = (data: DictTypeVO) =>
-  defHttp.put({ url: '/system/dictType/update', data });
+export const updateDictType = (data: DictTypeVO) => defHttp.put({ url: '/system/dictType', data });
 
-export const deleteDictType = (id: number) =>
-  defHttp.delete({ url: `/system/dictType/delete?id=${id}` });
+export const deleteDictType = (id: number) => defHttp.delete({ url: `/system/dictType?id=${id}` });
 
 export const getDictTypePage = (params: DictTypePageReqVO) =>
   defHttp.get({ url: '/system/dictType/page', params });
+
+export const getSimpleListDictType = () => defHttp.get({ url: '/system/dictType/simpleList' });

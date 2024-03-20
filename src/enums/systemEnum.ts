@@ -6,9 +6,9 @@ export interface Option {
 /**
  * 全局通用状态枚举
  */
-export const CommonStatusEnum = {
-  ENABLE: 0, // 开启
-  DISABLE: 1, // 禁用
+export const CommonStatus = {
+  ON: 0, // 开启
+  OFF: 1, // 禁用
 };
 
 /**
@@ -22,7 +22,7 @@ export const CommonSuccessEnum = {
 /**
  * 菜单的类型枚举
  */
-export const MenuTypeEnum = {
+export const MenuType = {
   DIR: 0, // 目录
   MENU: 1, // 菜单
   BUTTON: 2, // 按钮

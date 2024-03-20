@@ -3,6 +3,7 @@ import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { renderStatus } from '/@/utils/dict';
+import { DICT_TYPE, getDictOptions } from '@/utils/dict';
 
 type CheckedType = boolean | string | number;
 export const columns: BasicColumn[] = [
@@ -56,10 +57,7 @@ export const searchFormSchema: FormSchema[] = [
     label: '状态',
     component: 'Select',
     componentProps: {
-      options: [
-        { label: '启用', value: 0 },
-        { label: '停用', value: 1 },
-      ],
+      options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
     },
     colProps: { span: 8 },
   },
@@ -110,12 +108,9 @@ export const formSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'RadioButtonGroup',
-    defaultValue: 0,
+    defaultValue: false,
     componentProps: {
-      options: [
-        { label: '启用', value: 0 },
-        { label: '停用', value: 1 },
-      ],
+      options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
     },
   },
   {

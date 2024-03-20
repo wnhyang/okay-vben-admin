@@ -18,13 +18,13 @@ export interface RolePageReqVO extends PageParam {
   endTime?: Date;
 }
 
-export const getRole = (id: number) => defHttp.get({ url: `/system/role/get?id=${id}` });
+export const getRole = (id: number) => defHttp.get({ url: `/system/role?id=${id}` });
 
-export const createRole = (data: RoleVO) => defHttp.post({ url: '/system/role/create', data });
+export const createRole = (data: RoleVO) => defHttp.post({ url: '/system/role', data });
 
-export const updateRole = (data: RoleVO) => defHttp.put({ url: '/system/role/update', data });
+export const updateRole = (data: RoleVO) => defHttp.put({ url: '/system/role', data });
 
-export const deleteRole = (id: number) => defHttp.delete({ url: `/system/role/delete?id=${id}` });
+export const deleteRole = (id: number) => defHttp.delete({ url: `/system/role?id=${id}` });
 
 export const getRolePage = (params: RolePageReqVO) =>
   defHttp.get({ url: '/system/role/page', params });

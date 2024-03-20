@@ -40,13 +40,18 @@
   import { defineComponent, reactive } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getUserPage } from '/@/api/system/user';
+  import { getUserPage, deleteUser } from '/@/api/system/user';
 
   import { useModal } from '/@/components/Modal';
   import UserModal from './UserModal.vue';
 
   import { columns, searchFormSchema } from './user.data';
   import { useGo } from '/@/hooks/web/usePage';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { useMessage } from '@/hooks/web/useMessage';
+
+  const { t } = useI18n();
+  const { createMessage } = useMessage();
 
   export default defineComponent({
     name: 'UserManagement',
@@ -55,7 +60,7 @@
       const go = useGo();
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
-      const [registerTable, { reload, updateTableDataRecord }] = useTable({
+      const [registerTable, { reload }] = useTable({
         title: '账号列表',
         api: getUserPage,
         rowKey: 'id',
@@ -94,19 +99,15 @@
         });
       }
 
-      function handleDelete(record: Recordable) {
+      async function handleDelete(record: Recordable) {
         console.log(record);
+        await deleteUser(record.id);
+        createMessage.success(t('common.deleteSuccessText'));
+        reload();
       }
 
-      function handleSuccess({ isUpdate, values }) {
-        if (isUpdate) {
-          // 演示不刷新表格直接更新内部数据。
-          // 注意：updateTableDataRecord要求表格的rowKey属性为string并且存在于每一行的record的keys中
-          const result = updateTableDataRecord(values.id, values);
-          console.log(result);
-        } else {
-          reload();
-        }
+      function handleSuccess() {
+        reload();
       }
 
       function handleView(record: Recordable) {

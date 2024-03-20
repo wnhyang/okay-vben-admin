@@ -43,18 +43,18 @@
   const route = useRoute();
   const go = useGo();
   // 此处可以得到用户ID
-  const userId = ref(route.params?.id);
+  const userId = route.params?.id as unknown as number;
   console.log(userId);
 
   const currentKey = ref('detail');
   const { setTitle } = useTabs();
   // TODO
   // 本页代码仅作演示，实际应当通过userId从接口获得用户的相关资料
-  const user = getUser(Number(userId.value));
-  console.log(user);
+  const user = await getUser(userId);
+  console.log(user.username);
 
   // 设置Tab的标题（不会影响页面标题）
-  setTitle('详情：用户' + 'cc');
+  setTitle('详情：用户' + user.username);
 
   // 页面左侧点击返回链接时的操作
   function goBack() {

@@ -24,13 +24,13 @@ export interface UserPageReqVO extends PageParam {
   endTime?: Date;
 }
 
-export const getUser = (id: number) => defHttp.get<UserVO>({ url: `/system/user/get?id=${id}` });
+export const getUser = (id: number) => defHttp.get<UserVO>({ url: `/system/user?id=${id}` });
 
-export const createUser = (data: UserVO) => defHttp.post({ url: '/system/user/create', data });
+export const createUser = (data: UserVO) => defHttp.post({ url: '/system/user', data });
 
-export const updateUser = (data: UserVO) => defHttp.put({ url: '/system/user/update', data });
+export const updateUser = (data: UserVO) => defHttp.put({ url: '/system/user', data });
 
-export const deleteUser = (id: number) => defHttp.delete({ url: `/system/user/delete?id=${id}` });
+export const deleteUser = (id: number) => defHttp.delete({ url: `/system/user?id=${id}` });
 
 export const getUserPage = (params: UserPageReqVO) =>
   defHttp.get({ url: '/system/user/page', params });

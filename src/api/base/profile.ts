@@ -16,7 +16,7 @@ export interface UserProfileUpdatePasswordReqVO {
 export const getUserProfile = () => defHttp.get({ url: `/system/user/profile/get` });
 
 export const updateUserProfile = (data: UserProfileUpdateReqVO) =>
-  defHttp.put({ url: '/system/user/profile/update', data });
+  defHttp.put({ url: '/system/user/profile', data });
 
 export const updateUserPassword = (data: UserProfileUpdatePasswordReqVO) =>
   defHttp.put({ url: '/system/user/profile/updatePassword', data });

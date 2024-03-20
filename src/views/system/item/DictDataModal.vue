@@ -7,7 +7,7 @@
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { userFormSchema } from './user.data';
+  import { dictDataFormSchema } from './dictData.data';
   import { createUser, getUser, updateUser } from '/@/api/system/user';
   import { useI18n } from '@/hooks/web/useI18n';
   import { useMessage } from '@/hooks/web/useMessage';
@@ -16,7 +16,7 @@
   const { createMessage } = useMessage();
 
   export default defineComponent({
-    name: 'UserModal',
+    name: 'DictDataModal',
     components: { BasicModal, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
@@ -26,7 +26,7 @@
       const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
         baseColProps: { span: 24 },
-        schemas: userFormSchema,
+        schemas: dictDataFormSchema,
         showActionButtonGroup: false,
         actionColOptions: {
           span: 23,
@@ -46,7 +46,7 @@
         }
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增账号' : '编辑账号'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增字典数据' : '编辑字典数据'));
 
       async function handleSubmit() {
         try {

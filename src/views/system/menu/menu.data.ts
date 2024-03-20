@@ -2,6 +2,7 @@ import { BasicColumn, FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import Icon from '@/components/Icon/Icon.vue';
 import { isDir, isMenu, isButton, renderMenuType, renderStatus } from '/@/utils/dict';
+import { DICT_TYPE, getDictOptions } from '@/utils/dict';
 
 export const columns: BasicColumn[] = [
   {
@@ -63,10 +64,7 @@ export const searchFormSchema: FormSchema[] = [
     label: '状态',
     component: 'Select',
     componentProps: {
-      options: [
-        { label: '启用', value: 0, key: 0 },
-        { label: '停用', value: 1, key: 1 },
-      ],
+      options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
     },
     colProps: { span: 8 },
   },
@@ -179,11 +177,11 @@ export const formSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'RadioButtonGroup',
-    defaultValue: 0,
+    defaultValue: false,
     componentProps: {
       options: [
-        { label: '启用', value: 0, key: 0 },
-        { label: '禁用', value: 1, key: 1 },
+        { label: '启用', value: false, key: false },
+        { label: '禁用', value: true, key: true },
       ],
     },
   },

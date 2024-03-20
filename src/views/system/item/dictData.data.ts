@@ -2,10 +2,6 @@ import { BasicColumn, FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
 import Icon from '@/components/Icon/Icon.vue';
-import { getSimpleRoleList } from '/@/api/system/role';
-import { getSimpleListDictType } from '/@/api/system/dictType';
-import { useRender } from '/@/hooks/web/useRender';
-import { DICT_TYPE, getDictOptions } from '@/utils/dict';
 
 export const columns: BasicColumn[] = [
   {
@@ -37,9 +33,6 @@ export const columns: BasicColumn[] = [
     title: '状态',
     dataIndex: 'status',
     width: 100,
-    customRender: ({ text }) => {
-      return useRender.renderDict(text, DICT_TYPE.COMMON_STATUS);
-    },
   },
   {
     title: '备注',
@@ -93,52 +86,49 @@ export const searchFormSchema: FormSchema[] = [
 export const dictDataFormSchema: FormSchema[] = [
   {
     field: 'id',
-    label: '字典数据编号',
+    label: '用户编号',
     component: 'Input',
     show: false,
   },
   {
-    field: 'label',
-    label: '字典标签',
+    field: 'username',
+    label: '用户名',
     component: 'Input',
     required: true,
   },
   {
-    field: 'value',
-    label: '字典键值',
+    field: 'nickname',
+    label: '昵称',
     component: 'Input',
     required: true,
   },
   {
-    field: 'dictType',
-    label: '字典类型',
-    component: 'ApiSelect',
-    componentProps: {
-      api: () => getSimpleListDictType(),
-      labelField: 'name',
-      valueField: 'type',
-    },
-    required: true,
-  },
-  {
-    field: 'sort',
-    label: '排序',
-    component: 'Input',
-    defaultValue: 0,
-    required: true,
-  },
-  {
-    field: 'status',
-    label: '状态',
+    field: 'sex',
+    label: '性别',
     component: 'RadioButtonGroup',
-    defaultValue: false,
+    defaultValue: 0,
     componentProps: {
-      options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
+      options: [
+        { label: '男', value: 0, key: 0 },
+        { label: '女', value: 1, key: 1 },
+      ],
     },
   },
   {
-    field: 'remark',
+    label: '手机号',
+    field: 'mobile',
+    component: 'Input',
+    required: true,
+  },
+  {
+    label: '邮箱',
+    field: 'email',
+    component: 'Input',
+    required: true,
+  },
+  {
     label: '备注',
+    field: 'remark',
     component: 'InputTextArea',
   },
 ];

@@ -19,16 +19,18 @@ export interface DictDataPageReqVO extends PageParam {
   endTime?: Date;
 }
 
-export const getDictData = (id: number) => defHttp.get({ url: `/system/dictData/get?id=${id}` });
+export const getDictData = (id: number) => defHttp.get({ url: `/system/dictData?id=${id}` });
 
-export const createDictData = (data: DictDataVO) =>
-  defHttp.post({ url: '/system/dictData/create', data });
+export const createDictData = (data: DictDataVO) => defHttp.post({ url: '/system/dictData', data });
 
-export const updateDictData = (data: DictDataVO) =>
-  defHttp.put({ url: '/system/dictData/update', data });
+export const updateDictData = (data: DictDataVO) => defHttp.put({ url: '/system/dictData', data });
 
-export const deleteDictData = (id: number) =>
-  defHttp.delete({ url: `/system/dictData/delete?id=${id}` });
+export const deleteDictData = (id: number) => defHttp.delete({ url: `/system/dictData?id=${id}` });
 
 export const getDictDataPage = (params: DictDataPageReqVO) =>
   defHttp.get({ url: '/system/dictData/page', params });
+
+export const simpleListDictData = () => defHttp.get({ url: '/system/dictData/simpleList' });
+
+export const getDictDataListByDictType = (dictType: string) =>
+  defHttp.get({ url: `/system/dictData/listType?dictType=${dictType}` });

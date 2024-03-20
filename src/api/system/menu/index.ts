@@ -34,10 +34,10 @@ export const getMenuSimpleList = () => defHttp.get<MenuList>({ url: '/system/men
 
 export const getMenuSimpleListA = () => defHttp.get<MenuList>({ url: '/system/menu/simpleListA' });
 
-export const updateMenu = (data: MenuVO) => defHttp.put({ url: '/system/menu/update', data });
+export const updateMenu = (data: MenuVO) => defHttp.put({ url: '/system/menu', data });
 
-export const createMenu = (data: MenuVO) => defHttp.post({ url: '/system/menu/create', data });
+export const createMenu = (data: MenuVO) => defHttp.post({ url: '/system/menu', data });
 
-export const deleteMenu = (id: number) => defHttp.delete({ url: `/system/menu/delete?id=${id}` });
+export const deleteMenu = (id: number) => defHttp.delete({ url: `/system/menu?id=${id}` });
 
-export const getMenu = (id: number) => defHttp.get<MenuVO>({ url: `/system/menu/get?id=${id}` });
+export const getMenu = (id: number) => defHttp.get<MenuVO>({ url: `/system/menu?id=${id}` });
