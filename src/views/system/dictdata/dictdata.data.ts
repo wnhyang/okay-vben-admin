@@ -9,11 +9,6 @@ import { DICT_TYPE, getDictOptions } from '@/utils/dict';
 
 export const columns: BasicColumn[] = [
   {
-    title: '字典数据编号',
-    dataIndex: 'id',
-    width: 100,
-  },
-  {
     title: '字典标签',
     dataIndex: 'label',
     width: 100,
@@ -134,7 +129,6 @@ export const dictDataFormSchema: FormSchema[] = [
     label: '排序',
     component: 'Input',
     defaultValue: 0,
-    required: true,
   },
   {
     field: 'status',

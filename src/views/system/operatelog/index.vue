@@ -18,6 +18,8 @@
       const [registerTable] = useTable({
         title: '操作日志',
         api: getOperateLogPage,
+        rowKey: 'id',
+        showIndexColumn: false,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -28,7 +30,6 @@
         useSearchForm: true,
         showTableSetting: true,
         bordered: true,
-        showIndexColumn: false,
         canResize: false,
       });
 

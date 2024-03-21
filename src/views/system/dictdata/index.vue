@@ -50,6 +50,8 @@
       const [registerTable, { reload }] = useTable({
         title: '字典数据',
         api: getDictDataPage,
+        rowKey: 'id',
+        showIndexColumn: false,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -60,7 +62,6 @@
         useSearchForm: true,
         showTableSetting: true,
         bordered: true,
-        showIndexColumn: false,
         canResize: false,
         actionColumn: {
           width: 80,

@@ -62,6 +62,7 @@ export function getDictOptions(dictType: string, valueType?: 'string' | 'number'
 export enum DICT_TYPE {
   USER_TYPE = 'user_type',
   COMMON_STATUS = 'common_status',
+  COMMON_SEX = 'common_sex',
   SYSTEM_TENANT_PACKAGE_ID = 'system_tenant_package_id',
 
   // ========== SYSTEM 模块 ==========

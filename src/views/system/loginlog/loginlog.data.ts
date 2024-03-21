@@ -2,17 +2,17 @@ import { BasicColumn, FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
 import Icon from '@/components/Icon/Icon.vue';
+import { DICT_TYPE } from '@/utils/dict';
+import { useRender } from '/@/hooks/web/useRender';
 
 export const columns: BasicColumn[] = [
   {
-    title: '登录编号',
-    dataIndex: 'id',
-    width: 100,
-  },
-  {
-    title: '日志类型',
+    title: '登录类型',
     dataIndex: 'loginType',
     width: 120,
+    customRender: ({ text }) => {
+      return useRender.renderDict(text, DICT_TYPE.SYSTEM_LOGIN_TYPE);
+    },
   },
   {
     title: '账号',
@@ -33,6 +33,9 @@ export const columns: BasicColumn[] = [
     title: '登录结果',
     dataIndex: 'result',
     width: 100,
+    customRender: ({ text }) => {
+      return useRender.renderDict(text, DICT_TYPE.SYSTEM_LOGIN_RESULT);
+    },
   },
   {
     title: '登录日期',

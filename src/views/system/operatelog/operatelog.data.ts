@@ -3,13 +3,10 @@ import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
 import Icon from '@/components/Icon/Icon.vue';
 import { SystemMenuTypeEnum } from '/@/enums/menuEnum';
+import { DICT_TYPE } from '@/utils/dict';
+import { useRender } from '/@/hooks/web/useRender';
 
 export const columns: BasicColumn[] = [
-  {
-    title: '操作编号',
-    dataIndex: 'id',
-    width: 100,
-  },
   {
     title: '操作模块',
     dataIndex: 'module',
@@ -24,6 +21,9 @@ export const columns: BasicColumn[] = [
     title: '操作类型',
     dataIndex: 'type',
     width: 120,
+    customRender: ({ text }) => {
+      return useRender.renderDict(text, DICT_TYPE.SYSTEM_OPERATE_TYPE);
+    },
   },
   {
     title: '操作人',
@@ -35,12 +35,12 @@ export const columns: BasicColumn[] = [
     dataIndex: 'requestUrl',
   },
   {
-    title: '操作结果',
+    title: '结果码',
     dataIndex: 'resultCode',
     width: 180,
   },
   {
-    title: '执行时长',
+    title: '执行时长(ms)',
     dataIndex: 'duration',
     width: 180,
   },

@@ -5,11 +5,6 @@ import Icon from '@/components/Icon/Icon.vue';
 
 export const columns: BasicColumn[] = [
   {
-    title: '字典数据编号',
-    dataIndex: 'id',
-    width: 100,
-  },
-  {
     title: '字典标签',
     dataIndex: 'label',
     width: 100,

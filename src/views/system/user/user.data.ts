@@ -1,6 +1,7 @@
 import { getSimpleRoleList } from '/@/api/system/role';
 import { BasicColumn, FormSchema } from '/@/components/Table';
 import { useRender } from '/@/hooks/web/useRender';
+import { DICT_TYPE, getDictOptions } from '@/utils/dict';
 
 /**
  * transform mock data
@@ -36,16 +37,6 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '邮箱',
-    dataIndex: 'email',
-    width: 120,
-  },
-  {
-    title: '手机号',
-    dataIndex: 'mobile',
-    width: 120,
-  },
-  {
     title: '角色',
     dataIndex: 'roles',
     width: 200,
@@ -54,14 +45,32 @@ export const columns: BasicColumn[] = [
     },
   },
   {
-    title: '备注',
-    dataIndex: 'remark',
-    width: 200,
+    title: '手机号',
+    dataIndex: 'mobile',
+    width: 100,
   },
   {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    width: 180,
+    title: '状态',
+    dataIndex: 'status',
+    width: 120,
+    customRender: ({ text }) => {
+      return useRender.renderDict(text, DICT_TYPE.COMMON_STATUS);
+    },
+  },
+  {
+    title: '最后登录IP',
+    dataIndex: 'loginIp',
+    width: 100,
+  },
+  {
+    title: '最后登录时间',
+    dataIndex: 'loginDate',
+    width: 100,
+  },
+  {
+    title: '备注',
+    dataIndex: 'remark',
+    width: 150,
   },
 ];
 
@@ -105,10 +114,7 @@ export const userFormSchema: FormSchema[] = [
     component: 'RadioButtonGroup',
     defaultValue: 0,
     componentProps: {
-      options: [
-        { label: '男', value: 0, key: 0 },
-        { label: '女', value: 1, key: 1 },
-      ],
+      options: getDictOptions(DICT_TYPE.COMMON_SEX),
     },
   },
   {
@@ -134,6 +140,15 @@ export const userFormSchema: FormSchema[] = [
       mode: 'tags',
     },
     required: true,
+  },
+  {
+    field: 'status',
+    label: '状态',
+    component: 'RadioButtonGroup',
+    defaultValue: false,
+    componentProps: {
+      options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
+    },
   },
   {
     label: '备注',

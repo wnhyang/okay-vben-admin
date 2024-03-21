@@ -64,6 +64,7 @@
         title: '账号列表',
         api: getUserPage,
         rowKey: 'id',
+        showIndexColumn: false,
         columns,
         formConfig: {
           labelWidth: 120,

@@ -7,11 +7,6 @@ import { useRender } from '/@/hooks/web/useRender';
 
 export const columns: BasicColumn[] = [
   {
-    title: '字典类型编号',
-    dataIndex: 'id',
-    width: 100,
-  },
-  {
     title: '字典类型',
     dataIndex: 'type',
     width: 120,

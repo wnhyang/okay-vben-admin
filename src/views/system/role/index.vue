@@ -48,6 +48,8 @@
       const [registerTable, { reload }] = useTable({
         title: '角色列表',
         api: getRolePage,
+        rowKey: 'id',
+        showIndexColumn: false,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -57,7 +59,6 @@
         useSearchForm: true,
         showTableSetting: true,
         bordered: true,
-        showIndexColumn: false,
         actionColumn: {
           width: 80,
           title: '操作',

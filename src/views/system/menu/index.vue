@@ -53,6 +53,8 @@
       const [registerTable, { reload, expandAll }] = useTable({
         title: '菜单列表',
         api: getMenuList,
+        rowKey: 'id',
+        showIndexColumn: false,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -64,7 +66,6 @@
         useSearchForm: true,
         showTableSetting: true,
         bordered: true,
-        showIndexColumn: false,
         canResize: false,
         actionColumn: {
           width: 80,
