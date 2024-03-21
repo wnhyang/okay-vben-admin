@@ -3,6 +3,7 @@ import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
 import Icon from '@/components/Icon/Icon.vue';
 import { DICT_TYPE, getDictOptions } from '@/utils/dict';
+import { useRender } from '/@/hooks/web/useRender';
 
 export const columns: BasicColumn[] = [
   {
@@ -23,7 +24,10 @@ export const columns: BasicColumn[] = [
   {
     title: '状态',
     dataIndex: 'status',
-    width: 120,
+    width: 100,
+    customRender: ({ text }) => {
+      return useRender.renderDict(text, DICT_TYPE.COMMON_STATUS);
+    },
   },
   {
     title: '备注',
@@ -53,12 +57,9 @@ export const searchFormSchema: FormSchema[] = [
   {
     label: '状态',
     field: 'status',
-    component: 'Select',
+    component: 'RadioButtonGroup',
     componentProps: {
-      options: [
-        { label: '成功', value: 'true', key: 'true' },
-        { label: '失败', value: 'false', key: 'false' },
-      ],
+      options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
     },
     colProps: { span: 8 },
   },

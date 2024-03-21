@@ -2,7 +2,7 @@ import { h } from 'vue';
 import dayjs from 'dayjs';
 import { Button, Tag } from 'ant-design-vue';
 import { JsonPreview } from '@/components/CodeEditor';
-import { getDictDataLabel } from '/@/utils/dict';
+import { getDictData } from '/@/utils/dict';
 import { get } from 'sortablejs';
 
 export const useRender = {
@@ -13,10 +13,8 @@ export const useRender = {
    * @returns 字典标签
    */
   renderDict: (text: string, dictType: string) => {
-    const label = getDictDataLabel(dictType, text);
-    console.log(label);
-    if (dictType) return h(Tag, {}, () => label);
-
+    const dictData = getDictData(dictType, text);
+    if (dictType) return h(Tag, { color: dictData.color }, () => dictData.label);
     return '';
   },
   /**

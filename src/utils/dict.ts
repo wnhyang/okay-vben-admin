@@ -8,6 +8,7 @@ const dictStore = useDictStoreWithOut();
 export interface DictDataType {
   dictType: string;
   label: string;
+  color: string;
   value: string | number | boolean;
   key?: any;
 }
@@ -15,25 +16,19 @@ export interface DictDataType {
 export function getDictDataList(dictType: string) {
   return dictStore.getDictMap[dictType] || [];
 }
-export function getDictDataLabel(dictType: string, value: string) {
+export function getDictData(dictType: string, value: string | number | boolean) {
   const dictList = getDictDataList(dictType);
-  console.log(dictList);
-  dictList.forEach((dict: DictDataType) => {
-    console.log('dict.value', dict.value);
-    console.log('value', value);
-    console.log('eq', dict.value == value);
-    console.log('eq', value == dict.value);
+  if (!dictList || dictList.length === 0) {
+    return ''; // 处理边界条件：空数组或空值
+  }
+  // 判断value类型然后转为string
+  value = typeof value === 'string' ? value : value.toString();
+  for (const dict of dictList) {
     if (dict.value === value) {
-      return dict.label;
+      return dict;
     }
-  });
+  }
   return '';
-}
-export function renderStatus(status) {
-  const on = status === CommonStatus.ON;
-  const color = on ? 'green' : 'red';
-  const text = on ? '启用' : '停用';
-  return h(Tag, { color: color }, () => text);
 }
 
 export const isDir = (type: number) => type === MenuType.DIR;

@@ -26,12 +26,17 @@ export const columns: BasicColumn[] = [
   {
     title: '字典排序',
     dataIndex: 'sort',
-    width: 120,
+    width: 100,
   },
   {
     title: '字典类型',
     dataIndex: 'dictType',
-    width: 150,
+    width: 100,
+  },
+  {
+    title: '字典颜色',
+    dataIndex: 'color',
+    width: 100,
   },
   {
     title: '状态',
@@ -69,12 +74,9 @@ export const searchFormSchema: FormSchema[] = [
   {
     label: '状态',
     field: 'status',
-    component: 'Select',
+    component: 'RadioButtonGroup',
     componentProps: {
-      options: [
-        { label: '成功', value: 'true', key: 'true' },
-        { label: '失败', value: 'false', key: 'false' },
-      ],
+      options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
     },
     colProps: { span: 8 },
   },
@@ -118,6 +120,13 @@ export const dictDataFormSchema: FormSchema[] = [
       labelField: 'name',
       valueField: 'type',
     },
+    required: true,
+  },
+  {
+    field: 'color',
+    label: '颜色',
+    component: 'Input',
+    defaultValue: 0,
     required: true,
   },
   {

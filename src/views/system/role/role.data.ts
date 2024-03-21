@@ -2,8 +2,8 @@ import { BasicColumn, FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { useMessage } from '/@/hooks/web/useMessage';
-import { renderStatus } from '/@/utils/dict';
 import { DICT_TYPE, getDictOptions } from '@/utils/dict';
+import { useRender } from '/@/hooks/web/useRender';
 
 type CheckedType = boolean | string | number;
 export const columns: BasicColumn[] = [
@@ -26,7 +26,9 @@ export const columns: BasicColumn[] = [
     title: '状态',
     dataIndex: 'status',
     width: 120,
-    customRender: ({ record }) => renderStatus(record.status),
+    customRender: ({ text }) => {
+      return useRender.renderDict(text, DICT_TYPE.COMMON_STATUS);
+    },
   },
   {
     title: '创建时间',
@@ -55,7 +57,8 @@ export const searchFormSchema: FormSchema[] = [
   {
     field: 'status',
     label: '状态',
-    component: 'Select',
+    component: 'RadioButtonGroup',
+    defaultValue: false,
     componentProps: {
       options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
     },

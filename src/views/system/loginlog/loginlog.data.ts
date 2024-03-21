@@ -57,7 +57,7 @@ export const searchFormSchema: FormSchema[] = [
   {
     label: '结果',
     field: 'result',
-    component: 'Select',
+    component: 'RadioButtonGroup',
     componentProps: {
       options: [
         { label: '成功', value: 'true', key: 'true' },

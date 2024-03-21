@@ -6,6 +6,7 @@ export interface DictDataVO {
   label: string;
   value: string;
   dictType: string;
+  color: string;
   status: number;
   remark: string;
   createTime: Date;

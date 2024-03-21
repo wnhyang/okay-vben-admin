@@ -50,6 +50,7 @@ export const useDictStore = defineStore({
           dictDataMap[dictData.dictType].push({
             value: dictData.value,
             label: dictData.label,
+            color: dictData.color,
             id: dictData.id,
           });
         });

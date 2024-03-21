@@ -1,8 +1,9 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import Icon from '@/components/Icon/Icon.vue';
-import { isDir, isMenu, isButton, renderMenuType, renderStatus } from '/@/utils/dict';
+import { isDir, isMenu, isButton, renderMenuType } from '/@/utils/dict';
 import { DICT_TYPE, getDictOptions } from '@/utils/dict';
+import { useRender } from '/@/hooks/web/useRender';
 
 export const columns: BasicColumn[] = [
   {
@@ -43,7 +44,9 @@ export const columns: BasicColumn[] = [
     title: '状态',
     dataIndex: 'status',
     width: 80,
-    customRender: ({ record }) => renderStatus(record.status),
+    customRender: ({ text }) => {
+      return useRender.renderDict(text, DICT_TYPE.COMMON_STATUS);
+    },
   },
   {
     title: '创建时间',
@@ -62,7 +65,7 @@ export const searchFormSchema: FormSchema[] = [
   {
     field: 'status',
     label: '状态',
-    component: 'Select',
+    component: 'RadioButtonGroup',
     componentProps: {
       options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
     },
@@ -179,10 +182,7 @@ export const formSchema: FormSchema[] = [
     component: 'RadioButtonGroup',
     defaultValue: false,
     componentProps: {
-      options: [
-        { label: '启用', value: false, key: false },
-        { label: '禁用', value: true, key: true },
-      ],
+      options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
     },
   },
   {
