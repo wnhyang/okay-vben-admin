@@ -66,6 +66,7 @@ export const searchFormSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'RadioButtonGroup',
+    defaultValue: false,
     componentProps: {
       options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
     },

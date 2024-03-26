@@ -1,4 +1,5 @@
 import { FormSchema } from '/@/components/Form/index';
+import { DICT_TYPE, getDictOptions } from '@/utils/dict';
 
 export interface ListItem {
   key: string;
@@ -36,22 +37,19 @@ export const settingList = [
 // 基础设置 form
 export const baseSetSchemas: FormSchema[] = [
   {
-    field: 'email',
-    component: 'Input',
-    label: '邮箱',
-    colProps: { span: 18 },
-  },
-  {
     field: 'nickname',
     component: 'Input',
     label: '昵称',
     colProps: { span: 18 },
   },
   {
-    field: 'remark',
-    component: 'InputTextArea',
-    label: '个人简介',
-    colProps: { span: 18 },
+    field: 'sex',
+    label: '性别',
+    component: 'RadioButtonGroup',
+    defaultValue: 0,
+    componentProps: {
+      options: getDictOptions(DICT_TYPE.COMMON_SEX),
+    },
   },
   {
     field: 'mobile',
@@ -60,9 +58,15 @@ export const baseSetSchemas: FormSchema[] = [
     colProps: { span: 18 },
   },
   {
-    field: 'address',
+    field: 'email',
     component: 'Input',
-    label: '所在地区',
+    label: '邮箱',
+    colProps: { span: 18 },
+  },
+  {
+    field: 'remark',
+    component: 'InputTextArea',
+    label: '个人简介',
     colProps: { span: 18 },
   },
 ];

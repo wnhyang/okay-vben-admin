@@ -58,6 +58,7 @@ export const searchFormSchema: FormSchema[] = [
     label: '状态',
     field: 'status',
     component: 'Select',
+    defaultValue: false,
     componentProps: {
       options: [
         { label: '成功', value: 'true', key: 'true' },

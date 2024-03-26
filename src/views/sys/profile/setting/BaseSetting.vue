@@ -28,13 +28,15 @@
   import { CollapseContainer } from '/@/components/Container';
   import { CropperAvatar } from '/@/components/Cropper';
 
-  import { useMessage } from '/@/hooks/web/useMessage';
-
   import headerImg from '/@/assets/images/header.jpg';
-  import { getUserProfile } from '/@/api/base/profile';
+  import { getUserProfile, updateUserProfile } from '/@/api/base/profile';
   import { baseSetSchemas } from './data';
   import { useUserStore } from '/@/store/modules/user';
   import { uploadApi } from '/@/api/base/upload';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { useMessage } from '@/hooks/web/useMessage';
+
+  const { t } = useI18n();
 
   export default defineComponent({
     components: {
@@ -49,7 +51,7 @@
       const { createMessage } = useMessage();
       const userStore = useUserStore();
 
-      const [register, { setFieldsValue }] = useForm({
+      const [register, { setFieldsValue, validate }] = useForm({
         labelWidth: 120,
         schemas: baseSetSchemas,
         showActionButtonGroup: false,
@@ -66,11 +68,18 @@
         return avatar || headerImg;
       });
 
-      function updateAvatar({ src, data }) {
+      async function updateAvatar({ src, data }) {
         const userInfo = userStore.getUserInfo;
         userInfo.user.avatar = src;
         userStore.setUserInfo(userInfo);
         console.log('data', data);
+      }
+      async function handleSubmit() {
+        const values = await validate();
+        // TODO custom api
+        await updateUserProfile(values);
+        console.log(values);
+        createMessage.success(t('common.updateSuccessText'));
       }
 
       return {
@@ -78,9 +87,7 @@
         register,
         uploadApi: uploadApi as any,
         updateAvatar,
-        handleSubmit: () => {
-          createMessage.success('更新成功！');
-        },
+        handleSubmit,
       };
     },
   });

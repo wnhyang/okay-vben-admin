@@ -87,6 +87,12 @@ export const searchFormSchema: FormSchema[] = [
     component: 'Input',
     colProps: { span: 8 },
   },
+  {
+    field: 'mobile',
+    label: '手机号',
+    component: 'Input',
+    colProps: { span: 8 },
+  },
 ];
 
 export const userFormSchema: FormSchema[] = [

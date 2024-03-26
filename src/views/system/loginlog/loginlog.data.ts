@@ -2,7 +2,7 @@ import { BasicColumn, FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
 import Icon from '@/components/Icon/Icon.vue';
-import { DICT_TYPE } from '@/utils/dict';
+import { DICT_TYPE, getDictOptions } from '@/utils/dict';
 import { useRender } from '/@/hooks/web/useRender';
 
 export const columns: BasicColumn[] = [
@@ -60,12 +60,9 @@ export const searchFormSchema: FormSchema[] = [
   {
     label: '结果',
     field: 'result',
-    component: 'RadioButtonGroup',
+    component: 'Select',
     componentProps: {
-      options: [
-        { label: '成功', value: 'true', key: 'true' },
-        { label: '失败', value: 'false', key: 'false' },
-      ],
+      options: getDictOptions(DICT_TYPE.SYSTEM_LOGIN_RESULT, 'number'),
     },
     colProps: { span: 8 },
   },

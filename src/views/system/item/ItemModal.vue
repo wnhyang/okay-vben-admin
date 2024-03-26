@@ -46,7 +46,7 @@
         }
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增字典数据' : '编辑字典数据'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增' : '编辑'));
 
       async function handleSubmit() {
         try {

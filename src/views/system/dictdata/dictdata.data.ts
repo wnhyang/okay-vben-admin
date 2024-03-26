@@ -44,7 +44,7 @@ export const columns: BasicColumn[] = [
   {
     title: '备注',
     dataIndex: 'remark',
-    width: 200,
+    width: 100,
   },
   {
     title: '创建时间',
@@ -70,6 +70,7 @@ export const searchFormSchema: FormSchema[] = [
     label: '状态',
     field: 'status',
     component: 'RadioButtonGroup',
+    defaultValue: false,
     componentProps: {
       options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
     },

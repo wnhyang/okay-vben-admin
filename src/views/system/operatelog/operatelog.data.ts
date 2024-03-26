@@ -3,7 +3,7 @@ import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
 import Icon from '@/components/Icon/Icon.vue';
 import { SystemMenuTypeEnum } from '/@/enums/menuEnum';
-import { DICT_TYPE } from '@/utils/dict';
+import { DICT_TYPE, getDictOptions } from '@/utils/dict';
 import { useRender } from '/@/hooks/web/useRender';
 
 export const columns: BasicColumn[] = [
@@ -65,21 +65,18 @@ export const searchFormSchema: FormSchema[] = [
     colProps: { span: 8 },
   },
   {
-    label: '类型',
+    label: '操作类型',
     field: 'type',
     component: 'Select',
+    componentProps: {
+      options: getDictOptions(DICT_TYPE.SYSTEM_OPERATE_TYPE, 'number'),
+    },
     colProps: { span: 8 },
   },
   {
-    label: '状态',
-    field: 'success',
-    component: 'Select',
-    componentProps: {
-      options: [
-        { value: true, key: true, label: '成功' },
-        { value: false, key: false, label: '失败' },
-      ],
-    },
+    label: '结果码',
+    field: 'resultCode',
+    component: 'Input',
     colProps: { span: 8 },
   },
   {
