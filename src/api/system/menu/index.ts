@@ -25,14 +25,12 @@ export interface MenuVO {
   status: number;
 }
 
-export type MenuList = PageResult<MenuVO>;
-
 export const getMenuList = (params?: MenuParams) =>
-  defHttp.get<MenuList>({ url: '/system/menu/list', params });
+  defHttp.get({ url: '/system/menu/list', params });
 
-export const getMenuSimpleList = () => defHttp.get<MenuList>({ url: '/system/menu/simpleList' });
+export const getMenuSimpleList = () => defHttp.get({ url: '/system/menu/simpleList' });
 
-export const getMenuSimpleListA = () => defHttp.get<MenuList>({ url: '/system/menu/simpleListA' });
+export const getMenuSimpleListA = () => defHttp.get({ url: '/system/menu/simpleListA' });
 
 export const updateMenu = (data: MenuVO) => defHttp.put({ url: '/system/menu', data });
 
@@ -40,4 +38,4 @@ export const createMenu = (data: MenuVO) => defHttp.post({ url: '/system/menu', 
 
 export const deleteMenu = (id: number) => defHttp.delete({ url: `/system/menu?id=${id}` });
 
-export const getMenu = (id: number) => defHttp.get<MenuVO>({ url: `/system/menu?id=${id}` });
+export const getMenu = (id: number) => defHttp.get({ url: `/system/menu?id=${id}` });

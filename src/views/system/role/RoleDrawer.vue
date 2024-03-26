@@ -17,6 +17,7 @@
           toolbar
           search
           defaultExpandAll
+          :show-strictly-button="false"
           title="菜单分配"
         />
       </template>
@@ -34,7 +35,6 @@
   import { useMessage } from '/@/hooks/web/useMessage';
   import { createRole, updateRole, getRole } from '/@/api/system/role';
   import { getMenuSimpleList } from '/@/api/system/menu';
-  import { getRoleMenuList, roleMenu } from '/@/api/system/permission';
 
   const { createMessage } = useMessage();
   const emit = defineEmits(['success', 'register']);
@@ -59,8 +59,6 @@
 
     if (unref(isUpdate)) {
       const role = await getRole(data.record.id);
-      const menuIds = await getRoleMenuList(data.record.id);
-      role.menuIds = menuIds;
       setFieldsValue({
         ...role,
       });
@@ -72,15 +70,13 @@
   async function handleSubmit() {
     try {
       const values = await validate();
+      console.log(values);
       setDrawerProps({ confirmLoading: true });
 
       if (unref(isUpdate)) {
         await updateRole(values);
-        await roleMenu({ roleId: values.id, menuIds: values.menuIds });
       } else {
-        const res = await createRole(values);
-        console.log(res);
-        await roleMenu({ roleId: res, menuIds: values.menuIds });
+        await createRole(values);
       }
       closeDrawer();
       emit('success');

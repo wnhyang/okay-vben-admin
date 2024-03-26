@@ -1,7 +1,4 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
-import { h } from 'vue';
-import { Tag } from 'ant-design-vue';
-import Icon from '@/components/Icon/Icon.vue';
 import { DICT_TYPE, getDictOptions } from '@/utils/dict';
 import { useRender } from '/@/hooks/web/useRender';
 
@@ -15,7 +12,7 @@ export const columns: BasicColumn[] = [
     },
   },
   {
-    title: '账号',
+    title: '用户名',
     dataIndex: 'account',
     width: 120,
   },
@@ -38,13 +35,28 @@ export const columns: BasicColumn[] = [
     },
   },
   {
-    title: '登录日期',
+    title: '登录时间',
     dataIndex: 'createTime',
-    width: 180,
+    width: 120,
   },
 ];
 
 export const searchFormSchema: FormSchema[] = [
+  {
+    label: '登录类型',
+    field: 'loginType',
+    component: 'Select',
+    componentProps: {
+      options: getDictOptions(DICT_TYPE.SYSTEM_LOGIN_TYPE, 'number'),
+    },
+    colProps: { span: 8 },
+  },
+  {
+    label: '用户名',
+    field: 'username',
+    component: 'Input',
+    colProps: { span: 8 },
+  },
   {
     label: '登录IP',
     field: 'userIp',
@@ -52,13 +64,7 @@ export const searchFormSchema: FormSchema[] = [
     colProps: { span: 8 },
   },
   {
-    label: '用户名称',
-    field: 'username',
-    component: 'Input',
-    colProps: { span: 8 },
-  },
-  {
-    label: '结果',
+    label: '登录结果',
     field: 'result',
     component: 'Select',
     componentProps: {

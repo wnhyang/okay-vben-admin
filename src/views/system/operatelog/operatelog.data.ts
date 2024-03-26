@@ -1,14 +1,12 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
 import { h } from 'vue';
-import { Tag } from 'ant-design-vue';
-import Icon from '@/components/Icon/Icon.vue';
-import { SystemMenuTypeEnum } from '/@/enums/menuEnum';
 import { DICT_TYPE, getDictOptions } from '@/utils/dict';
 import { useRender } from '/@/hooks/web/useRender';
+import type { DescItem } from '@/components/Description/index';
 
 export const columns: BasicColumn[] = [
   {
-    title: '操作模块',
+    title: '模块',
     dataIndex: 'module',
     width: 200,
   },
@@ -18,7 +16,7 @@ export const columns: BasicColumn[] = [
     width: 180,
   },
   {
-    title: '操作类型',
+    title: '类型',
     dataIndex: 'type',
     width: 120,
     customRender: ({ text }) => {
@@ -37,15 +35,15 @@ export const columns: BasicColumn[] = [
   {
     title: '结果码',
     dataIndex: 'resultCode',
-    width: 180,
+    width: 100,
   },
   {
     title: '执行时长(ms)',
     dataIndex: 'duration',
-    width: 180,
+    width: 100,
   },
   {
-    title: '操作日期',
+    title: '操作时间',
     dataIndex: 'startTime',
     width: 180,
   },
@@ -53,19 +51,19 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    label: '系统模块',
+    label: '模块',
     field: 'module',
     component: 'Input',
     colProps: { span: 8 },
   },
   {
-    label: '操作人员',
+    label: '操作人',
     field: 'userNickName',
     component: 'Input',
     colProps: { span: 8 },
   },
   {
-    label: '操作类型',
+    label: '类型',
     field: 'type',
     component: 'Select',
     componentProps: {
@@ -88,6 +86,93 @@ export const searchFormSchema: FormSchema[] = [
       format: 'YYYY-MM-DD HH:mm:ss',
       // 传给后端的时间格式--
       valueFormat: 'YYYY-MM-DD HH:mm:ss',
+    },
+  },
+];
+
+const httpMethods = [
+  { value: 'GET', color: '#108ee9' },
+  { value: 'POST', color: '#2db7f5' },
+  { value: 'PUT', color: 'warning' },
+  { value: 'DELETE', color: '#f50' },
+];
+
+export const infoSchema: DescItem[] = [
+  {
+    field: 'module',
+    label: '操作模块',
+  },
+  {
+    field: 'name',
+    label: '操作名',
+  },
+  {
+    field: 'userNickname',
+    label: '操作人',
+    render(_, data) {
+      const { userNickname, userId } = data;
+      // return useRender.renderText(userNickname, 'uid: ' + userId)
+      return useRender.renderTags([userNickname, `uid: ${userId}`]);
+    },
+  },
+  {
+    field: 'resultCode',
+    label: '结果码',
+  },
+  {
+    field: 'resultMsg',
+    label: '响应信息',
+    show(data) {
+      return data && data.resultMsg && data.resultMsg !== '';
+    },
+    render(value) {
+      return h('span', { style: { color: 'red', fontWeight: 'bold' } }, value);
+    },
+  },
+  {
+    field: 'userIp',
+    label: '请求ip',
+  },
+  {
+    field: 'startTime',
+    label: '请求时间',
+    render(value) {
+      return useRender.renderDate(value);
+    },
+  },
+  {
+    field: 'requestUrl',
+    label: '请求路径',
+    render(_, data) {
+      if (!data) return '';
+
+      const { requestMethod, requestUrl } = data;
+      const current = httpMethods.find((item) => item.value === requestMethod.toUpperCase());
+      const methodTag = current ? useRender.renderTag(requestMethod, current.color) : requestMethod;
+      return h('span', {}, [methodTag, requestUrl]);
+    },
+  },
+  {
+    field: 'javaMethod',
+    label: '操作方法',
+    labelMinWidth: 80,
+  },
+  {
+    field: 'javaMethodArgs',
+    label: '请求参数',
+    render(value) {
+      return useRender.renderJsonPreview(value);
+    },
+  },
+  {
+    field: 'userAgent',
+    label: 'userAgent',
+  },
+  {
+    field: 'duration',
+    label: '请求耗时',
+    render(value) {
+      return useRender.renderText(value, 'ms');
     },
   },
 ];

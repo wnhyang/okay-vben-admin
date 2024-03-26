@@ -1,13 +1,14 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
-import { h } from 'vue';
-import { Tag } from 'ant-design-vue';
-import Icon from '@/components/Icon/Icon.vue';
-import { getSimpleRoleList } from '/@/api/system/role';
 import { getSimpleListDictType } from '/@/api/system/dictType';
 import { useRender } from '/@/hooks/web/useRender';
 import { DICT_TYPE, getDictOptions } from '@/utils/dict';
 
 export const columns: BasicColumn[] = [
+  {
+    title: '字典类型',
+    dataIndex: 'dictType',
+    width: 100,
+  },
   {
     title: '字典标签',
     dataIndex: 'label',
@@ -19,18 +20,13 @@ export const columns: BasicColumn[] = [
     width: 100,
   },
   {
-    title: '字典排序',
-    dataIndex: 'sort',
-    width: 100,
-  },
-  {
-    title: '字典类型',
-    dataIndex: 'dictType',
-    width: 100,
-  },
-  {
     title: '字典颜色',
     dataIndex: 'color',
+    width: 100,
+  },
+  {
+    title: '字典排序',
+    dataIndex: 'sort',
     width: 100,
   },
   {
@@ -55,14 +51,19 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    label: '字典标签',
-    field: 'label',
-    component: 'Input',
+    label: '字典类型',
+    field: 'dictType',
+    component: 'ApiSelect',
+    componentProps: {
+      api: () => getSimpleListDictType(),
+      labelField: 'name',
+      valueField: 'type',
+    },
     colProps: { span: 8 },
   },
   {
-    label: '字典类型',
-    field: 'dictType',
+    label: '字典标签',
+    field: 'label',
     component: 'Input',
     colProps: { span: 8 },
   },

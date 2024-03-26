@@ -4,7 +4,7 @@ export interface OperateLogPageReqVO extends PageParam {
   module?: string;
   userNickname?: string;
   type?: number;
-  success?: boolean;
+  resultCode?: boolean;
   startTime?: Date;
   endTime?: Date;
 }

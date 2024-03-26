@@ -1,7 +1,4 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
-import { h } from 'vue';
-import { Tag } from 'ant-design-vue';
-import Icon from '@/components/Icon/Icon.vue';
 import { DICT_TYPE, getDictOptions } from '@/utils/dict';
 import { useRender } from '/@/hooks/web/useRender';
 
@@ -17,9 +14,14 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
+    title: '标准',
+    dataIndex: 'standard',
+    width: 120,
+  },
+  {
     title: '状态',
     dataIndex: 'status',
-    width: 100,
+    width: 80,
     customRender: ({ text }) => {
       return useRender.renderDict(text, DICT_TYPE.COMMON_STATUS);
     },

@@ -50,14 +50,6 @@ export const columns: BasicColumn[] = [
     width: 100,
   },
   {
-    title: '状态',
-    dataIndex: 'status',
-    width: 120,
-    customRender: ({ text }) => {
-      return useRender.renderDict(text, DICT_TYPE.COMMON_STATUS);
-    },
-  },
-  {
     title: '最后登录IP',
     dataIndex: 'loginIp',
     width: 100,
@@ -66,6 +58,14 @@ export const columns: BasicColumn[] = [
     title: '最后登录时间',
     dataIndex: 'loginDate',
     width: 100,
+  },
+  {
+    title: '状态',
+    dataIndex: 'status',
+    width: 120,
+    customRender: ({ text }) => {
+      return useRender.renderDict(text, DICT_TYPE.COMMON_STATUS);
+    },
   },
   {
     title: '备注',
@@ -82,16 +82,31 @@ export const searchFormSchema: FormSchema[] = [
     colProps: { span: 8 },
   },
   {
-    field: 'nickname',
-    label: '昵称',
-    component: 'Input',
-    colProps: { span: 8 },
-  },
-  {
     field: 'mobile',
     label: '手机号',
     component: 'Input',
     colProps: { span: 8 },
+  },
+  {
+    field: 'status',
+    label: '状态',
+    component: 'RadioButtonGroup',
+    defaultValue: false,
+    componentProps: {
+      options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
+    },
+    colProps: { span: 8 },
+  },
+  {
+    label: '创建时间',
+    field: 'dateTime',
+    component: 'RangePicker',
+    colProps: { span: 12 },
+    componentProps: {
+      format: 'YYYY-MM-DD HH:mm:ss',
+      // 传给后端的时间格式--
+      valueFormat: 'YYYY-MM-DD HH:mm:ss',
+    },
   },
 ];
 

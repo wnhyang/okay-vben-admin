@@ -51,7 +51,7 @@
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload, expandAll }] = useTable({
-        title: '菜单列表',
+        title: '菜单',
         api: getMenuList,
         rowKey: 'id',
         showIndexColumn: false,

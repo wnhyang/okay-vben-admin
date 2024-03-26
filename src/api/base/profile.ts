@@ -13,10 +13,10 @@ export interface UserProfileUpdatePasswordReqVO {
   newPassword?: string;
 }
 
-export const getUserProfile = () => defHttp.get({ url: `/system/user/profile/get` });
+export const getUserProfile = () => defHttp.get({ url: `/system/user/profile` });
 
 export const updateUserProfile = (data: UserProfileUpdateReqVO) =>
   defHttp.put({ url: '/system/user/profile', data });
 
-export const updateUserPassword = (data: UserProfileUpdatePasswordReqVO) =>
+export const updatePassword = (data: UserProfileUpdatePasswordReqVO) =>
   defHttp.put({ url: '/system/user/profile/updatePassword', data });

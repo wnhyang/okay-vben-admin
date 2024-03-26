@@ -14,6 +14,7 @@ export interface UserVO {
   remark: string;
   loginDate: Date;
   createTime: Date;
+  roleIds: number[];
 }
 
 export interface UserPageReqVO extends PageParam {
@@ -24,7 +25,7 @@ export interface UserPageReqVO extends PageParam {
   endTime?: Date;
 }
 
-export const getUser = (id: number) => defHttp.get<UserVO>({ url: `/system/user?id=${id}` });
+export const getUser = (id: number) => defHttp.get({ url: `/system/user?id=${id}` });
 
 export const createUser = (data: UserVO) => defHttp.post({ url: '/system/user', data });
 

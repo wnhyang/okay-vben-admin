@@ -1,11 +1,7 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
-import { h } from 'vue';
-import { Switch } from 'ant-design-vue';
-import { useMessage } from '/@/hooks/web/useMessage';
 import { DICT_TYPE, getDictOptions } from '@/utils/dict';
 import { useRender } from '/@/hooks/web/useRender';
 
-type CheckedType = boolean | string | number;
 export const columns: BasicColumn[] = [
   {
     title: '角色名称',
@@ -31,13 +27,13 @@ export const columns: BasicColumn[] = [
     },
   },
   {
+    title: '备注',
+    dataIndex: 'remark',
+  },
+  {
     title: '创建时间',
     dataIndex: 'createTime',
     width: 180,
-  },
-  {
-    title: '备注',
-    dataIndex: 'remark',
   },
 ];
 
@@ -50,7 +46,7 @@ export const searchFormSchema: FormSchema[] = [
   },
   {
     label: '角色标识',
-    field: 'code',
+    field: 'value',
     component: 'Input',
     colProps: { span: 8 },
   },
@@ -99,7 +95,6 @@ export const formSchema: FormSchema[] = [
   {
     field: 'sort',
     label: '排序',
-    required: true,
     component: 'Input',
   },
   {
@@ -117,7 +112,7 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
-    label: ' ',
+    label: '菜单',
     field: 'menuIds',
     slot: 'menuIds',
     component: 'ApiTree',
