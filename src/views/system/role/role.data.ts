@@ -115,6 +115,6 @@ export const formSchema: FormSchema[] = [
     label: '菜单',
     field: 'menuIds',
     slot: 'menuIds',
-    component: 'ApiTree',
+    component: 'Input',
   },
 ];

@@ -99,6 +99,7 @@
           disabled: unref(getDisable),
         } as any;
       });
+
       function upEditDynamicDisabled(record, column, value) {
         if (!record) return false;
         const { key, dataIndex } = column;
@@ -106,6 +107,7 @@
         const dataKey = (dataIndex || key) as string;
         set(record, dataKey, value);
       }
+
       const getDisable = computed(() => {
         const { editDynamicDisabled } = props.column;
         let disabled = false;
@@ -337,199 +339,200 @@
       function initCbs(cbs: 'submitCbs' | 'validCbs' | 'cancelCbs', handle) {
         if (props.record) {
           /* eslint-disable  */
-          isArray(props.record[cbs])
-            ? props.record[cbs]?.push(handle)
-            : (props.record[cbs] = [handle]);
-        }
+        isArray(props.record[cbs])
+          ? props.record[cbs]?.push(handle)
+          : (props.record[cbs] = [handle]);
       }
+    }
 
-      if (props.record) {
-        initCbs('submitCbs', handleSubmit);
-        initCbs('validCbs', handleSubmitRule);
-        initCbs('cancelCbs', handleCancel);
+    if (props.record) {
+      initCbs("submitCbs", handleSubmit);
+      initCbs("validCbs", handleSubmitRule);
+      initCbs("cancelCbs", handleCancel);
 
-        if (props.column.dataIndex) {
-          if (!props.record.editValueRefs) props.record.editValueRefs = {};
-          props.record.editValueRefs[props.column.dataIndex as any] = currentValueRef;
-        }
-        /* eslint-disable  */
-        props.record.onCancelEdit = () => {
-          isArray(props.record?.cancelCbs) && props.record?.cancelCbs.forEach((fn) => fn());
-        };
-        /* eslint-disable */
-        props.record.onSubmitEdit = async () => {
-          if (isArray(props.record?.submitCbs)) {
-            if (!props.record?.onValid?.()) return;
-            const submitFns = props.record?.submitCbs || [];
-            submitFns.forEach((fn) => fn(false, false));
-            table.emit?.('edit-row-end');
-            return true;
-          }
-        };
+      if (props.column.dataIndex) {
+        if (!props.record.editValueRefs) props.record.editValueRefs = {};
+        props.record.editValueRefs[props.column.dataIndex as any] = currentValueRef;
       }
-
-      return {
-        isEdit,
-        prefixCls,
-        handleEdit,
-        currentValueRef,
-        handleSubmit,
-        handleChange,
-        handleCancel,
-        elRef,
-        getComponent,
-        getRule,
-        onClickOutside,
-        ruleMessage,
-        getRuleVisible,
-        getComponentProps,
-        handleOptionsChange,
-        getWrapperStyle,
-        getWrapperClass,
-        getRowEditable,
-        getValues,
-        handleEnter,
-        handleSubmitClick,
-        spinning,
+      /* eslint-disable  */
+      props.record.onCancelEdit = () => {
+        isArray(props.record?.cancelCbs) && props.record?.cancelCbs.forEach((fn) => fn());
       };
-    },
-    render() {
-      return (
-        <div class={this.prefixCls}>
-          <div
-            v-show={!this.isEdit}
-            class={{ [`${this.prefixCls}__normal`]: true, 'ellipsis-cell': this.column.ellipsis }}
-            onClick={this.handleEdit}
-          >
-            <div class="cell-content" title={this.column.ellipsis ? this.getValues ?? '' : ''}>
-              {this.column.editRender
-                ? this.column.editRender({
-                    text: this.value,
-                    record: this.record as Recordable,
-                    column: this.column,
-                    index: this.index,
-                  })
-                : this.getValues ?? '\u00A0'}
-            </div>
-            {!this.column.editRow && <FormOutlined class={`${this.prefixCls}__normal-icon`} />}
+      /* eslint-disable */
+      props.record.onSubmitEdit = async () => {
+        if (isArray(props.record?.submitCbs)) {
+          if (!props.record?.onValid?.()) return;
+          const submitFns = props.record?.submitCbs || [];
+          submitFns.forEach((fn) => fn(false, false));
+          table.emit?.("edit-row-end");
+          return true;
+        }
+      };
+    }
+
+    return {
+      isEdit,
+      prefixCls,
+      handleEdit,
+      currentValueRef,
+      handleSubmit,
+      handleChange,
+      handleCancel,
+      elRef,
+      getComponent,
+      getRule,
+      onClickOutside,
+      ruleMessage,
+      getRuleVisible,
+      getComponentProps,
+      handleOptionsChange,
+      getWrapperStyle,
+      getWrapperClass,
+      getRowEditable,
+      getValues,
+      handleEnter,
+      handleSubmitClick,
+      spinning
+    };
+  },
+  render() {
+    return (
+      <div class={this.prefixCls}>
+        <div
+          v-show={!this.isEdit}
+          class={{ [`${this.prefixCls}__normal`]: true, "ellipsis-cell": this.column.ellipsis }}
+          onClick={this.handleEdit}
+        >
+          <div class="cell-content" title={this.column.ellipsis ? this.getValues ?? "" : ""}>
+            {this.column.editRender
+              ? this.column.editRender({
+                text: this.value,
+                record: this.record as Recordable,
+                column: this.column,
+                index: this.index
+              })
+              : this.getValues ?? "\u00A0"}
           </div>
-          {this.isEdit && (
-            <Spin spinning={this.spinning}>
-              <div class={`${this.prefixCls}__wrapper`} v-click-outside={this.onClickOutside}>
-                <CellComponent
-                  {...this.getComponentProps}
-                  component={this.getComponent}
-                  style={this.getWrapperStyle}
-                  popoverVisible={this.getRuleVisible}
-                  rule={this.getRule}
-                  ruleMessage={this.ruleMessage}
-                  class={this.getWrapperClass}
-                  ref="elRef"
-                  onChange={this.handleChange}
-                  onOptionsChange={this.handleOptionsChange}
-                  onPressEnter={this.handleEnter}
-                />
-                {!this.getRowEditable && (
-                  <div class={`${this.prefixCls}__action`}>
-                    <CheckOutlined
-                      class={[`${this.prefixCls}__icon`, 'mx-2']}
-                      onClick={this.handleSubmitClick}
-                    />
-                    <CloseOutlined class={`${this.prefixCls}__icon `} onClick={this.handleCancel} />
-                  </div>
-                )}
-              </div>
-            </Spin>
-          )}
+          {!this.column.editRow && <FormOutlined class={`${this.prefixCls}__normal-icon`} />}
         </div>
-      );
-    },
-  });
+        {this.isEdit && (
+          <Spin spinning={this.spinning}>
+            <div class={`${this.prefixCls}__wrapper`} v-click-outside={this.onClickOutside}>
+              <CellComponent
+                {...this.getComponentProps}
+                component={this.getComponent}
+                style={this.getWrapperStyle}
+                popoverVisible={this.getRuleVisible}
+                rule={this.getRule}
+                ruleMessage={this.ruleMessage}
+                class={this.getWrapperClass}
+                ref="elRef"
+                onChange={this.handleChange}
+                onOptionsChange={this.handleOptionsChange}
+                onPressEnter={this.handleEnter}
+              />
+              {!this.getRowEditable && (
+                <div class={`${this.prefixCls}__action`}>
+                  <CheckOutlined
+                    class={[`${this.prefixCls}__icon`, "mx-2"]}
+                    onClick={this.handleSubmitClick}
+                  />
+                  <CloseOutlined class={`${this.prefixCls}__icon `} onClick={this.handleCancel} />
+                </div>
+              )}
+            </div>
+          </Spin>
+        )}
+      </div>
+    );
+  }
+});
 </script>
 <style lang="less">
-  @prefix-cls: ~'@{namespace}-editable-cell';
+@prefix-cls: ~'@{namespace}-editable-cell';
 
-  .edit-cell-align-left {
+.edit-cell-align-left {
+  text-align: left;
+
+  input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
     text-align: left;
-
-    input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
-      text-align: left;
-    }
   }
+}
 
-  .edit-cell-align-center {
+.edit-cell-align-center {
+  text-align: center;
+
+  input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
     text-align: center;
-
-    input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
-      text-align: center;
-    }
   }
+}
 
-  .edit-cell-align-right {
+.edit-cell-align-right {
+  text-align: right;
+
+  input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
     text-align: right;
+  }
+}
 
-    input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
-      text-align: right;
+.edit-cell-rule-popover {
+  .ant-popover-inner-content {
+    padding: 4px 8px;
+    // border: 1px solid @error-color;
+    border-radius: 2px;
+    color: @error-color;
+  }
+}
+
+.@{prefix-cls} {
+  position: relative;
+  min-height: 24px; //设置高度让其始终可被hover
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > .ant-select {
+      min-width: calc(100% - 50px);
     }
   }
 
-  .edit-cell-rule-popover {
-    .ant-popover-inner-content {
-      padding: 4px 8px;
-      // border: 1px solid @error-color;
-      border-radius: 2px;
-      color: @error-color;
-    }
-  }
-  .@{prefix-cls} {
-    position: relative;
-    min-height: 24px; //设置高度让其始终可被hover
-
-    &__wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      > .ant-select {
-        min-width: calc(100% - 50px);
-      }
-    }
-
-    &__icon {
-      &:hover {
-        transform: scale(1.2);
-
-        svg {
-          color: @primary-color;
-        }
-      }
-    }
-
-    .ellipsis-cell {
-      .cell-content {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        word-break: break-word;
-        white-space: nowrap;
-        overflow-wrap: break-word;
-      }
-    }
-
-    &__normal {
-      &-icon {
-        display: none;
-        position: absolute;
-        top: 4px;
-        right: 0;
-        width: 20px;
-        cursor: pointer;
-      }
-    }
-
+  &__icon {
     &:hover {
-      .@{prefix-cls}__normal-icon {
-        display: inline-block;
+      transform: scale(1.2);
+
+      svg {
+        color: @primary-color;
       }
     }
   }
+
+  .ellipsis-cell {
+    .cell-content {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-word;
+      white-space: nowrap;
+      overflow-wrap: break-word;
+    }
+  }
+
+  &__normal {
+    &-icon {
+      display: none;
+      position: absolute;
+      top: 4px;
+      right: 0;
+      width: 20px;
+      cursor: pointer;
+    }
+  }
+
+  &:hover {
+    .@{prefix-cls}__normal-icon {
+      display: inline-block;
+    }
+  }
+}
 </style>

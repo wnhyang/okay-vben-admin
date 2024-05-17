@@ -59,6 +59,7 @@
       function handleClose() {
         emit('close');
       }
+
       return { handleOk, prefixCls, handleClose, getStyle };
     },
   });

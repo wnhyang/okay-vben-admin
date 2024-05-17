@@ -101,12 +101,14 @@ export function useFormEvents({
     emit('reset', toRaw(formModel));
     submitOnReset && handleSubmit();
   }
+
   // 获取表单fields
   const getAllFields = () =>
     unref(getSchema)
       .map((item) => [...(item.fields || []), item.field])
       .flat(1)
       .filter(Boolean);
+
   /**
    * @description: Set form value
    */

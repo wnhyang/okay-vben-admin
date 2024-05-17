@@ -5,8 +5,8 @@
  *
  */
 import type { Pinia } from 'pinia';
-import { createPersistedState } from 'pinia-plugin-persistedstate';
 import type { PersistedStateFactoryOptions } from 'pinia-plugin-persistedstate';
+import { createPersistedState } from 'pinia-plugin-persistedstate';
 import { getCommonStoragePrefix } from '@/utils/env';
 
 export const PERSIST_KEY_PREFIX = getCommonStoragePrefix();

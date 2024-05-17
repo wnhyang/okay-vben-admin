@@ -121,6 +121,7 @@
           );
         });
       }
+
       return () => {
         if (!unref(showRef)) {
           return null;
@@ -195,6 +196,7 @@
     &__item {
       margin: 0 !important;
     }
+
     .item-style();
 
     .ant-divider {

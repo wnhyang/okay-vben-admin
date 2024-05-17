@@ -56,6 +56,7 @@
         }
         return 1;
       });
+
       function handleStart() {
         state.startTime = new Date().getTime();
       }
@@ -95,6 +96,7 @@
         }
         state.showTip = true;
       }
+
       function checkPass() {
         state.isPassing = true;
         state.endTime = new Date().getTime();

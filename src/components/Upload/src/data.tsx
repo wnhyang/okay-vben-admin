@@ -70,6 +70,7 @@ export function createTableColumns(): FileBasicColumn[] {
     },
   ];
 }
+
 export function createActionColumn(handleRemove: Function): FileBasicColumn {
   return {
     width: 120,
@@ -88,6 +89,7 @@ export function createActionColumn(handleRemove: Function): FileBasicColumn {
     },
   };
 }
+
 // 文件预览列表
 export function createPreviewColumns(): BasicColumn[] {
   return [

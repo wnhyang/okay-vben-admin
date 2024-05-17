@@ -18,6 +18,7 @@ export function useMultipleTabSetting() {
   function setMultipleTabSetting(multiTabsSetting: Partial<MultiTabsSetting>) {
     appStore.setProjectConfig({ multiTabsSetting });
   }
+
   return {
     setMultipleTabSetting,
     getShowMultipleTab,

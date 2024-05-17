@@ -76,6 +76,7 @@ function getChangeEvent() {
 function getClickEvent() {
   return 'click';
 }
+
 /**
  * @description: 获取方法
  * @param {}

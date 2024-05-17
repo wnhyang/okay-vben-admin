@@ -161,11 +161,11 @@
 
       const getIsFixed = computed(() => {
         /* eslint-disable-next-line */
-        mixSideHasChildren.value = unref(childrenMenus).length > 0;
+      mixSideHasChildren.value = unref(childrenMenus).length > 0;
         const isFixed = unref(getMixSideFixed) && unref(mixSideHasChildren);
         if (isFixed) {
           /* eslint-disable-next-line */
-          openMenu.value = true;
+        openMenu.value = true;
         }
         return isFixed;
       });
@@ -404,6 +404,7 @@
           }
         }
       }
+
       .@{prefix-cls}-menu-list {
         &__content {
           box-shadow: 0 0 4px 0 rgb(0 0 0 / 10%);
@@ -420,6 +421,7 @@
         }
       }
     }
+
     @border-color: @sider-dark-lighten-bg-color;
 
     &.dark {
@@ -432,6 +434,7 @@
           border-right: 1px solid @border-color;
         }
       }
+
       .@{prefix-cls}-menu-list {
         background-color: @sider-dark-bg-color;
 
@@ -472,6 +475,7 @@
         &:hover {
           color: @white;
         }
+
         // &:hover,
         &--active {
           background-color: @sider-dark-darken-bg-color;

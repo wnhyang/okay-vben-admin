@@ -69,6 +69,7 @@
       }
 
       const { hasPermission } = usePermission();
+
       function isIfShow(action: ActionItem): boolean {
         const ifShow = action.ifShow;
 

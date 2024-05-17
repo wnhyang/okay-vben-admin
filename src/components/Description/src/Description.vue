@@ -132,7 +132,7 @@
               }
               const getField = get(_data, field);
               // eslint-disable-next-line
-              if (getField && !toRefs(_data).hasOwnProperty(field)) {
+            if (getField && !toRefs(_data).hasOwnProperty(field)) {
                 return isFunction(render) ? render('', _data) : '';
               }
               return isFunction(render) ? render(getField, _data) : getField ?? '';

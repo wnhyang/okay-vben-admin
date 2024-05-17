@@ -51,8 +51,10 @@
               />
             </div>
           </div>
-          <template v-else
-            ><div class="p-5"><a-empty /></div>
+          <template v-else>
+            <div class="p-5">
+              <a-empty />
+            </div>
           </template>
         </template>
 

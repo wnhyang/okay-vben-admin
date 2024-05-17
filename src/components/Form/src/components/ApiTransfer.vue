@@ -75,8 +75,8 @@
       });
       const getTargetKeys = computed<string[]>(() => {
         /* if (unref(_targetKeys).length > 0) {
-          return unref(_targetKeys);
-        } */
+        return unref(_targetKeys);
+      } */
         if (Array.isArray(props.value)) {
           return props.value;
         }
@@ -129,9 +129,11 @@
           console.warn(error);
         }
       }
+
       function emitChange() {
         emit('options-change', unref(getdataSource));
       }
+
       return { getTargetKeys, getdataSource, t, getAttrs, handleChange };
     },
   });

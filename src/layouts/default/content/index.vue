@@ -42,6 +42,7 @@
       width: 1200px;
       margin: 0 auto;
     }
+
     // end
 
     &-loading {

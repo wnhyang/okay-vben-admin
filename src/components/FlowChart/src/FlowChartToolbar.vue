@@ -140,6 +140,7 @@
       background: #080808;
     }
   }
+
   .@{prefix-cls} {
     height: 36px;
     border-bottom: 1px solid @border-color-base;

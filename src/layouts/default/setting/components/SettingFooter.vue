@@ -55,6 +55,7 @@
           content: t('layout.setting.operatingContent'),
         });
       }
+
       function handleResetSetting() {
         try {
           appStore.setProjectConfig(defaultSetting);
@@ -76,6 +77,7 @@
         userStore.resetState();
         location.reload();
       }
+
       return {
         prefixCls,
         t,

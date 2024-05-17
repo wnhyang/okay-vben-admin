@@ -15,6 +15,7 @@
     tooltipBackgroundColor?: string; // 提示框背景颜色，优先级高于 overlayStyle
     tooltipOverlayStyle?: CSSProperties; // 提示框内容区域样式
   }
+
   const props = withDefaults(defineProps<Props>(), {
     maxWidth: '100%',
     line: undefined,
@@ -51,6 +52,7 @@
     { flush: 'post' },
   );
   const emit = defineEmits(['expandChange']);
+
   function onExpand() {
     if (ellipsis.value.style['-webkit-line-clamp']) {
       if (props.tooltip) {

@@ -56,9 +56,11 @@
     emits: ['columns-change'],
     setup(_, { emit }) {
       const { prefixCls } = useDesign('basic-table-header');
+
       function handleColumnChange(data: ColumnChangeParam[]) {
         emit('columns-change', data);
       }
+
       return { prefixCls, handleColumnChange };
     },
   });

@@ -45,6 +45,7 @@
     },
     setup() {
       const [registerModal, { openModal }] = useModal();
+
       function handleEdit(title: string) {
         if (title === '账户密码') openModal(true, {});
       }
@@ -52,6 +53,7 @@
       function handleSuccess() {
         createMessage.success(t('common.updateSuccessText'));
       }
+
       return {
         registerModal,
         handleEdit,

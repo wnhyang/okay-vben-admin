@@ -10,22 +10,27 @@
         :pagination="paginationProp"
       >
         <template #header>
-          <div class="flex justify-end space-x-2"
-            ><slot name="header"></slot>
+          <div class="flex justify-end space-x-2">
+            <slot name="header"></slot>
             <Tooltip>
               <template #title>
-                <div class="w-50">每行显示数量</div
-                ><Slider
+                <div class="w-50">每行显示数量 </div>
+                <Slider
                   id="slider"
                   v-bind="sliderProp"
                   v-model:value="grid"
                   @change="sliderChange"
-              /></template>
-              <Button><TableOutlined /></Button>
+                />
+              </template>
+              <Button>
+                <TableOutlined />
+              </Button>
             </Tooltip>
             <Tooltip @click="fetch">
               <template #title>刷新</template>
-              <Button><RedoOutlined /></Button>
+              <Button>
+                <RedoOutlined />
+              </Button>
             </Tooltip>
           </div>
         </template>
@@ -122,11 +127,13 @@
     autoSubmitOnEnter: true,
     submitFunc: handleSubmit,
   });
+
   //表单提交
   async function handleSubmit() {
     const data = await validate();
     await fetch(data);
   }
+
   function sliderChange(n) {
     pageSize.value = n * 4;
     fetch();
@@ -146,6 +153,7 @@
       total.value = res.total;
     }
   }
+
   //分页相关
   const page = ref(1);
   const pageSize = ref(36);
@@ -166,6 +174,7 @@
     pageSize.value = pz;
     fetch();
   }
+
   function pageSizeChange(_current, size: number) {
     pageSize.value = size;
     fetch();

@@ -93,6 +93,7 @@
         isFirstLoaded.value = true;
         emit('options-change', treeData.value);
       }
+
       return { getAttrs, loading, state };
     },
   });

@@ -8,7 +8,7 @@ import { useAppStoreWithOut } from './app';
 import { toRaw } from 'vue';
 import about from '@/router/routes/modules/about';
 import dashboard from '@/router/routes/modules/dashboard';
-import { transformObjToRoute, flatMultiLevelRoutes } from '/@/router/helper/routeHelper';
+import { flatMultiLevelRoutes, transformObjToRoute } from '/@/router/helper/routeHelper';
 import { transformRouteToMenu } from '/@/router/helper/menuHelper';
 
 import projectSetting from '/@/settings/projectSetting';

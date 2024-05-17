@@ -7,7 +7,7 @@
         </template>
       </template>
     </BasicTable>
-    <a-button block class="mt-5" type="dashed" @click="handleAdd"> 新增成员 </a-button>
+    <a-button block class="mt-5" type="dashed" @click="handleAdd"> 新增成员</a-button>
   </div>
 </template>
 <script lang="ts">

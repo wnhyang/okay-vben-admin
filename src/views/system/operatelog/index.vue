@@ -1,7 +1,7 @@
 <template>
   <div>
     <BasicTable @register="registerTable">
-      <template #toolbar> </template>
+      <template #toolbar></template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
           <TableAction

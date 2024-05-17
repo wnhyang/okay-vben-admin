@@ -123,6 +123,7 @@ export interface FormProps {
   transformDateFunc?: (date: any) => string;
   colon?: boolean;
 }
+
 export type RenderOpts = {
   disabled: boolean;
   [key: string]: any;
@@ -220,6 +221,7 @@ interface BaseFormSchema {
 
   dynamicRules?: (renderCallbackParams: RenderCallbackParams) => Rule[];
 }
+
 export interface ComponentFormSchema extends BaseFormSchema {
   // render component
   component: ComponentType;
@@ -243,6 +245,7 @@ export function isSlotFormSchema(schema: FormSchemaInner): schema is SlotFormSch
 export function isComponentFormSchema(schema: FormSchemaInner): schema is ComponentFormSchema {
   return !isSlotFormSchema(schema);
 }
+
 export interface HelpComponentProps {
   maxWidth: string;
   // Whether to display the serial number

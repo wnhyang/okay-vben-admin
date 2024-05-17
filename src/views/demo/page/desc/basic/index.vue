@@ -80,6 +80,7 @@
           },
         ];
       }
+
       return {
         registerRefundTable,
         registerTimeTable,

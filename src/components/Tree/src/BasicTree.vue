@@ -165,6 +165,7 @@
       function getExpandedKeys() {
         return state.expandedKeys;
       }
+
       function setSelectedKeys(keys: KeyType[]) {
         state.selectedKeys = keys;
       }

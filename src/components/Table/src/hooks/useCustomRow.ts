@@ -38,6 +38,7 @@ export function useCustomRow(
     return {
       onClick: (e: Event) => {
         e?.stopPropagation();
+
         function handleClick() {
           const { rowSelection, rowKey, clickToRowSelect } = unref(propsRef);
           if (!rowSelection || !clickToRowSelect) return;
@@ -78,6 +79,7 @@ export function useCustomRow(
             clearSelectedRowKeys();
           }
         }
+
         handleClick();
         emit('row-click', record, index, e);
       },

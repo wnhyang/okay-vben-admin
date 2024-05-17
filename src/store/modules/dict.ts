@@ -3,8 +3,8 @@ import { defineStore } from 'pinia';
 import { store } from '@/store';
 
 import { DICT_KEY } from '@/enums/cacheEnum';
-import { simpleListDictData } from '@/api/system/dictData';
 import type { DictDataVO } from '@/api/system/dictData';
+import { simpleListDictData } from '@/api/system/dictData';
 import { createLocalStorage } from '/@/utils/cache';
 
 const ls = createLocalStorage();

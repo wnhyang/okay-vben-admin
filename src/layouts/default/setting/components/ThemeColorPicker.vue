@@ -46,6 +46,7 @@
       function handleClick(color: string) {
         props.event && baseHandler(props.event, color);
       }
+
       return {
         prefixCls,
         handleClick,

@@ -15,6 +15,7 @@ export function initAffixTabs(): string[] {
 
   const tabStore = useMultipleTabStore();
   const router = useRouter();
+
   /**
    * @description: Filter all fixed routes
    */

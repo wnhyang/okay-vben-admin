@@ -15,7 +15,7 @@
     </a-card>
 
     <template #rightFooter>
-      <a-button type="primary" @click="submitAll"> 提交 </a-button>
+      <a-button type="primary" @click="submitAll"> 提交</a-button>
     </template>
   </PageWrapper>
 </template>

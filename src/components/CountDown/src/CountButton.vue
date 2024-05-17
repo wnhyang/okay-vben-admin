@@ -56,6 +56,7 @@
           start();
         }
       }
+
       return { handleStart, currentCount, loading, getButtonText, isStart };
     },
   });

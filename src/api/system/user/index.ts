@@ -35,3 +35,6 @@ export const deleteUser = (id: number) => defHttp.delete({ url: `/system/user?id
 
 export const getUserPage = (params: UserPageReqVO) =>
   defHttp.get({ url: '/system/user/page', params });
+
+export const exportExcel = (params: UserPageReqVO) =>
+  defHttp.download({ url: '/system/user/export', params }, '用户.xls');

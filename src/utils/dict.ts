@@ -1,6 +1,6 @@
 import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
-import { CommonStatus, MenuType } from '/@/enums/systemEnum';
+import { MenuType } from '/@/enums/systemEnum';
 import { useDictStoreWithOut } from '@/store/modules/dict';
 
 const dictStore = useDictStoreWithOut();
@@ -16,6 +16,7 @@ export interface DictDataType {
 export function getDictDataList(dictType: string) {
   return dictStore.getDictMap[dictType] || [];
 }
+
 export function getDictData(dictType: string, value: string | number | boolean) {
   const dictList = getDictDataList(dictType);
   if (!dictList || dictList.length === 0) {
@@ -40,6 +41,7 @@ export function renderMenuType(type) {
   const color = isDir(type) ? 'blue' : isMenu(type) ? 'green' : isButton(type) ? 'red' : '';
   return h(Tag, { color: color }, () => text);
 }
+
 export function getDictOptions(dictType: string, valueType?: 'string' | 'number' | 'boolean') {
   const dictOption: DictDataType[] = [];
   const dictOptions: DictDataType[] = getDictDataList(dictType);
@@ -59,6 +61,7 @@ export function getDictOptions(dictType: string, valueType?: 'string' | 'number'
   }
   return dictOption;
 }
+
 export enum DICT_TYPE {
   USER_TYPE = 'user_type',
   COMMON_STATUS = 'common_status',

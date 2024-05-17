@@ -1,7 +1,7 @@
 <template>
   <div>
     <BasicTable @register="registerTable">
-      <template #toolbar> </template>
+      <template #toolbar></template>
     </BasicTable>
   </div>
 </template>

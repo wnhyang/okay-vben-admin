@@ -27,6 +27,7 @@
           // Animation execution time
         }, 1200);
       }
+
       return { prefixCls, handleRedo, loading };
     },
   });

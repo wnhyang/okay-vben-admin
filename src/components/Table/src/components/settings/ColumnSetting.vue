@@ -296,6 +296,7 @@
 
       let sortable: Sortable;
       let sortableOrder: string[] = [];
+
       // reset columns
       function reset() {
         setColumns(cachePlainOptions.value);

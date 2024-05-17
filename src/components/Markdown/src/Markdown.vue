@@ -84,6 +84,7 @@
         }
         return lang;
       });
+
       function init() {
         const wrapEl = unref(wrapRef);
         if (!wrapEl) return;

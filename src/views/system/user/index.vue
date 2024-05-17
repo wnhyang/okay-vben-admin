@@ -3,6 +3,7 @@
     <BasicTable @register="registerTable" :searchInfo="searchInfo">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate">新增</a-button>
+        <a-button type="primary" @click="handleExport">导出</a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -40,7 +41,7 @@
   import { defineComponent, reactive } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getUserPage, deleteUser } from '/@/api/system/user';
+  import { getUserPage, deleteUser, exportExcel, UserPageReqVO } from '/@/api/system/user';
 
   import { useModal } from '/@/components/Modal';
   import UserModal from './UserModal.vue';
@@ -60,7 +61,7 @@
       const go = useGo();
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
-      const [registerTable, { reload }] = useTable({
+      const [registerTable, { getForm, reload }] = useTable({
         title: '账号列表',
         api: getUserPage,
         rowKey: 'id',
@@ -93,6 +94,11 @@
         });
       }
 
+      async function handleExport() {
+        await exportExcel(getForm().getFieldsValue() as UserPageReqVO);
+        console.log('导出');
+      }
+
       function handleEdit(record: Recordable) {
         console.log(record);
         openModal(true, {
@@ -122,6 +128,7 @@
         registerTable,
         registerModal,
         handleCreate,
+        handleExport,
         handleEdit,
         handleDelete,
         handleSuccess,

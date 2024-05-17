@@ -1,18 +1,19 @@
 import type {
-  AxiosRequestConfig,
-  AxiosInstance,
-  AxiosResponse,
   AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
+import axios from 'axios';
 import type { RequestOptions, Result, UploadFileParams } from '/#/axios';
 import type { CreateAxiosOptions } from './axiosTransform';
-import axios from 'axios';
 import qs from 'qs';
 import { AxiosCanceler } from './axiosCancel';
 import { isFunction } from '/@/utils/is';
 import { cloneDeep } from 'lodash-es';
 import { ContentTypeEnum, RequestEnum } from '/@/enums/httpEnum';
+import { downloadByData } from '@/utils/file/download';
 
 export * from './axiosTransform';
 
@@ -88,8 +89,9 @@ export class VAxios {
 
     // Request interceptor configuration processing
     this.axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-      // If cancel repeat request is turned on, then cancel repeat request is prohibited     
-      const requestOptions =  (config as unknown as any).requestOptions ?? this.options.requestOptions;
+      // If cancel repeat request is turned on, then cancel repeat request is prohibited
+      const requestOptions =
+        (config as unknown as any).requestOptions ?? this.options.requestOptions;
       const ignoreCancelToken = requestOptions?.ignoreCancelToken ?? true;
 
       !ignoreCancelToken && axiosCanceler.addPending(config);
@@ -196,13 +198,100 @@ export class VAxios {
     return this.request({ ...config, method: 'DELETE' }, options);
   }
 
+  download<T = any>(
+    config: AxiosRequestConfig,
+    title?: string,
+    options?: RequestOptions,
+  ): Promise<T> {
+    let conf: CreateAxiosOptions = cloneDeep({
+      ...config,
+      method: 'GET',
+      responseType: 'blob',
+    });
+    const transform = this.getTransform();
+
+    const { requestOptions } = this.options;
+
+    const opt: RequestOptions = Object.assign({}, requestOptions, options);
+
+    const { beforeRequestHook, requestCatchHook } = transform || {};
+
+    if (beforeRequestHook && isFunction(beforeRequestHook)) conf = beforeRequestHook(conf, opt);
+
+    conf.requestOptions = opt;
+
+    conf = this.supportFormData(conf);
+
+    return new Promise((resolve, reject) => {
+      this.axiosInstance
+        .request<any, AxiosResponse<Result>>(conf)
+        .then((res: AxiosResponse<Result>) => {
+          resolve(res as unknown as Promise<T>);
+          // download file
+          if (typeof res != 'undefined')
+            downloadByData(res?.data as unknown as BlobPart, title || 'export');
+        })
+        .catch((e: Error | AxiosError) => {
+          if (requestCatchHook && isFunction(requestCatchHook)) {
+            reject(requestCatchHook(e, opt));
+            return;
+          }
+          if (axios.isAxiosError(e)) {
+            // rewrite error message from axios in here
+          }
+          reject(e);
+        });
+    });
+  }
+
+  export<T = any>(config: AxiosRequestConfig, title: string, options?: RequestOptions): Promise<T> {
+    let conf: CreateAxiosOptions = cloneDeep({
+      ...config,
+      method: 'POST',
+      responseType: 'blob',
+    });
+    const transform = this.getTransform();
+
+    const { requestOptions } = this.options;
+
+    const opt: RequestOptions = Object.assign({}, requestOptions, options);
+
+    const { beforeRequestHook, requestCatchHook } = transform || {};
+
+    if (beforeRequestHook && isFunction(beforeRequestHook)) conf = beforeRequestHook(conf, opt);
+
+    conf.requestOptions = opt;
+
+    conf = this.supportFormData(conf);
+
+    return new Promise((resolve, reject) => {
+      this.axiosInstance
+        .request<any, AxiosResponse<Result>>(conf)
+        .then((res: AxiosResponse<Result>) => {
+          resolve(res as unknown as Promise<T>);
+          // download file
+          if (typeof res != 'undefined') downloadByData(res?.data as unknown as BlobPart, title);
+        })
+        .catch((e: Error | AxiosError) => {
+          if (requestCatchHook && isFunction(requestCatchHook)) {
+            reject(requestCatchHook(e, opt));
+            return;
+          }
+          if (axios.isAxiosError(e)) {
+            // rewrite error message from axios in here
+          }
+          reject(e);
+        });
+    });
+  }
+
   request<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
     let conf: CreateAxiosOptions = cloneDeep(config);
     // cancelToken 如果被深拷贝，会导致最外层无法使用cancel方法来取消请求
     if (config.cancelToken) {
       conf.cancelToken = config.cancelToken;
     }
-    
+
     if (config.signal) {
       conf.signal = config.signal;
     }

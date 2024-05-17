@@ -34,6 +34,7 @@
       function handleChange(e) {
         props.event && baseHandler(props.event, e);
       }
+
       return {
         prefixCls,
         handleChange,

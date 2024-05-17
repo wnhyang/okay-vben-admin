@@ -19,7 +19,7 @@
     components: { MenuItem: Menu.Item, Icon },
     props: {
       // eslint-disable-next-line
-      key: propTypes.string,
+    key: propTypes.string,
       text: propTypes.string,
       icon: propTypes.string,
     },

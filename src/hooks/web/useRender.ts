@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import { Button, Tag } from 'ant-design-vue';
 import { JsonPreview } from '@/components/CodeEditor';
 import { getDictData } from '/@/utils/dict';
-import { get } from 'sortablejs';
 
 export const useRender = {
   /**

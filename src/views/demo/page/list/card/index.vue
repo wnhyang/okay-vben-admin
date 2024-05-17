@@ -3,9 +3,18 @@
     <template #headerContent>
       基于Vue Next, TypeScript, Ant Design Vue实现的一套完整的企业级后台管理系统。
       <div :class="`${prefixCls}__link`">
-        <a><Icon icon="bx:bx-paper-plane" color="#1890ff" /><span>开始</span></a>
-        <a><Icon icon="carbon:warning" color="#1890ff" /><span>简介</span></a>
-        <a><Icon icon="ion:document-text-outline" color="#1890ff" /><span>文档</span></a>
+        <a>
+          <Icon icon="bx:bx-paper-plane" color="#1890ff" />
+          <span>开始</span></a
+        >
+        <a>
+          <Icon icon="carbon:warning" color="#1890ff" />
+          <span>简介</span></a
+        >
+        <a>
+          <Icon icon="ion:document-text-outline" color="#1890ff" />
+          <span>文档</span></a
+        >
       </div>
     </template>
 

@@ -52,5 +52,6 @@ export function useTableFooter(
       });
     });
   }
+
   return { getFooterProps };
 }

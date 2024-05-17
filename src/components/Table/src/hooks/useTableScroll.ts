@@ -197,6 +197,7 @@ export function useTableScroll(
 
     bodyEl!.style.height = `${height}px`;
   }
+
   useWindowSizeFn(calcTableHeight, { wait: 280 });
   onMountedOrActivated(() => {
     calcTableHeight();

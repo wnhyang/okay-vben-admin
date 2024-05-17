@@ -18,7 +18,7 @@
         </div>
       </a-col>
     </a-row>
-    <Button type="primary" @click="handleSubmit"> 更新基本信息 </Button>
+    <Button type="primary" @click="handleSubmit"> 更新基本信息</Button>
   </CollapseContainer>
 </template>
 <script lang="ts">
@@ -74,6 +74,7 @@
         userStore.setUserInfo(userInfo);
         console.log('data', data);
       }
+
       async function handleSubmit() {
         const values = await validate();
         // TODO custom api
