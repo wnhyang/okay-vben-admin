@@ -7,7 +7,7 @@ import { useRender } from '/@/hooks/web/useRender';
 
 export const columns: BasicColumn[] = [
   {
-    title: '菜单名称',
+    title: '菜单名',
     dataIndex: 'title',
     width: 200,
     align: 'left',
@@ -58,19 +58,20 @@ export const columns: BasicColumn[] = [
 export const searchFormSchema: FormSchema[] = [
   {
     field: 'title',
-    label: '菜单名称',
     component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 3 },
+    componentProps: {
+      placeholder: '菜单名',
+    },
   },
   {
     field: 'status',
-    label: '状态',
     component: 'RadioButtonGroup',
     defaultValue: false,
     componentProps: {
       options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
     },
-    colProps: { span: 8 },
+    colProps: { span: 3 },
   },
 ];
 

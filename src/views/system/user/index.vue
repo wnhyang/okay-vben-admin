@@ -62,7 +62,7 @@
       const [registerModal, { openModal }] = useModal();
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { getForm, reload }] = useTable({
-        title: '账号列表',
+        title: '用户',
         api: getUserPage,
         rowKey: 'id',
         showIndexColumn: false,

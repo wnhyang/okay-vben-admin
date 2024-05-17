@@ -77,31 +77,33 @@ export const columns: BasicColumn[] = [
 export const searchFormSchema: FormSchema[] = [
   {
     field: 'username',
-    label: '用户名',
     component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 3 },
+    componentProps: {
+      placeholder: '用户名',
+    },
   },
   {
     field: 'mobile',
-    label: '手机号',
     component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 3 },
+    componentProps: {
+      placeholder: '手机号',
+    },
   },
   {
     field: 'status',
-    label: '状态',
     component: 'RadioButtonGroup',
     defaultValue: false,
     componentProps: {
       options: getDictOptions(DICT_TYPE.COMMON_STATUS, 'boolean'),
     },
-    colProps: { span: 8 },
+    colProps: { span: 4 },
   },
   {
-    label: '创建时间',
     field: 'dateTime',
     component: 'RangePicker',
-    colProps: { span: 12 },
+    colProps: { span: 8 },
     componentProps: {
       format: 'YYYY-MM-DD HH:mm:ss',
       // 传给后端的时间格式--
