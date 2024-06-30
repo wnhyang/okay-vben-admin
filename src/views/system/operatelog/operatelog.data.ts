@@ -51,37 +51,42 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    label: '模块',
     field: 'module',
     component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 3 },
+    componentProps: {
+      placeholder: '操作模块',
+    },
   },
   {
-    label: '操作人',
     field: 'userNickName',
     component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 3 },
+    componentProps: {
+      placeholder: '操作人',
+    },
   },
   {
-    label: '类型',
     field: 'type',
     component: 'Select',
     componentProps: {
+      placeholder: '操作类型',
       options: getDictOptions(DICT_TYPE.SYSTEM_OPERATE_TYPE, 'number'),
     },
-    colProps: { span: 8 },
+    colProps: { span: 3 },
   },
   {
-    label: '结果码',
     field: 'resultCode',
     component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 3 },
+    componentProps: {
+      placeholder: '结果码',
+    },
   },
   {
-    label: '操作时间',
     field: 'dateTime',
     component: 'RangePicker',
-    colProps: { span: 12 },
+    colProps: { span: 8 },
     componentProps: {
       format: 'YYYY-MM-DD HH:mm:ss',
       // 传给后端的时间格式--

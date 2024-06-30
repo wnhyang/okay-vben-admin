@@ -43,40 +43,43 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    label: '登录类型',
     field: 'loginType',
     component: 'Select',
     componentProps: {
+      placeholder: '登录类型',
       options: getDictOptions(DICT_TYPE.SYSTEM_LOGIN_TYPE, 'number'),
     },
-    colProps: { span: 8 },
+    colProps: { span: 3 },
   },
   {
-    label: '用户名',
     field: 'username',
     component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 3 },
+    componentProps: {
+      placeholder: '用户名',
+    },
   },
   {
-    label: '登录IP',
     field: 'userIp',
     component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 3 },
+    componentProps: {
+      placeholder: '登录IP',
+    },
   },
   {
-    label: '登录结果',
     field: 'result',
     component: 'Select',
     componentProps: {
+      placeholder: '登录结果',
       options: getDictOptions(DICT_TYPE.SYSTEM_LOGIN_RESULT, 'number'),
     },
-    colProps: { span: 8 },
+    colProps: { span: 3 },
   },
   {
-    label: '登录时间',
     field: 'dateTime',
     component: 'RangePicker',
-    colProps: { span: 12 },
+    colProps: { span: 8 },
     componentProps: {
       format: 'YYYY-MM-DD HH:mm:ss',
       // 传给后端的时间格式--
