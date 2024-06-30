@@ -25,22 +25,12 @@ export const columns: BasicColumn[] = [
     width: 100,
   },
   {
-    title: '字典排序',
-    dataIndex: 'sort',
-    width: 100,
-  },
-  {
     title: '状态',
     dataIndex: 'status',
-    width: 100,
+    width: 50,
     customRender: ({ text }) => {
       return useRender.renderDict(text, DICT_TYPE.COMMON_STATUS);
     },
-  },
-  {
-    title: '备注',
-    dataIndex: 'remark',
-    width: 100,
   },
   {
     title: '创建时间',
@@ -97,6 +87,17 @@ export const dictDataFormSchema: FormSchema[] = [
     show: false,
   },
   {
+    field: 'dictType',
+    label: '字典类型',
+    component: 'ApiSelect',
+    componentProps: {
+      api: () => getSimpleListDictType(),
+      labelField: 'name',
+      valueField: 'type',
+    },
+    required: true,
+  },
+  {
     field: 'label',
     label: '字典标签',
     component: 'Input',
@@ -106,17 +107,6 @@ export const dictDataFormSchema: FormSchema[] = [
     field: 'value',
     label: '字典键值',
     component: 'Input',
-    required: true,
-  },
-  {
-    field: 'dictType',
-    label: '字典类型',
-    component: 'ApiSelect',
-    componentProps: {
-      api: () => getSimpleListDictType(),
-      labelField: 'name',
-      valueField: 'type',
-    },
     required: true,
   },
   {

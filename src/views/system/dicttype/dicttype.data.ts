@@ -16,20 +16,18 @@ export const columns: BasicColumn[] = [
   {
     title: '标准',
     dataIndex: 'standard',
-    width: 120,
+    width: 30,
+    customRender: ({ text }) => {
+      return useRender.renderDict(text, DICT_TYPE.COMMON_STANDARD);
+    },
   },
   {
     title: '状态',
     dataIndex: 'status',
-    width: 80,
+    width: 50,
     customRender: ({ text }) => {
       return useRender.renderDict(text, DICT_TYPE.COMMON_STATUS);
     },
-  },
-  {
-    title: '备注',
-    dataIndex: 'remark',
-    width: 100,
   },
   {
     title: '创建时间',
