@@ -8,7 +8,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable } from '/@/components/Table';
-  import { columns, searchFormSchema } from './dictData.data';
+  import { columns, searchFormSchema } from './item.data';
   import { getDictDataPage } from '/@/api/system/dictData';
 
   export default defineComponent({

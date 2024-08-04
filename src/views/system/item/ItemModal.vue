@@ -7,7 +7,7 @@
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { dictDataFormSchema } from './dictData.data';
+  import { dictDataFormSchema } from './item.data';
   import { createUser, getUser, updateUser } from '/@/api/system/user';
   import { useI18n } from '@/hooks/web/useI18n';
   import { useMessage } from '@/hooks/web/useMessage';
